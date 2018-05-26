@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.summary       = "Simple Blog Theme is a clean, responsive blogging theme for Jekyll and GitHub Pages, with social/SEO, multilanguage features."
 
   s.files         = `git ls-files -z`.split("\x0").select do |f|
-    f.match(%r{^((_includes|_layouts|_sass|assets)/|(LICENSE|README|sitemaps|projects-en|projects-it|now-en|now-it|index-en|index-it|feed-en|feed-it|contact-en|contact-it|about-en|about-it|404-en|404-it)((\.(txt|md|markdown|xml)|$)))}i)
+    f.match(%r{^((_includes|_layouts|_sass|assets)/|(LICENSE|README|sitemaps|projects-en|projects-it|now-en|now-it|index-en|index-it|feed-en|feed-it|contact-it|about-en|about-it|404-en|404-it)((\.(txt|md|markdown|xml)|$)))}i)
   end
 
   s.platform      = Gem::Platform::RUBY
