@@ -15,6 +15,6 @@ This is a [now page](http://nownownow.com/about){:target="_blank"}, and it was i
 
 _Updated on_ **25 Settembre 2017**.
 
-Here write what you are up to now.
+Learn github pages.
 
 {% include go-to-home-page.html %}

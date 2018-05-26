@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Contact
-tagline: Create a contact form and you are good to go
+tagline: Feel free to reach me though email: jubin1985@qq.com
 excerpt: >
   Create a contact form and you are good to go. This goes SEO!
 permalink: /contact.html
