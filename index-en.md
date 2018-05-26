@@ -10,7 +10,7 @@ permalink: /index.html
 header:
   image: /assets/img/home-header.jpg
 tagline: > # this means to ignore newlines until "repository:"
-  My first
+  Bin's Blog
 excerpt: >
   My first GitHub pages blog.
 
