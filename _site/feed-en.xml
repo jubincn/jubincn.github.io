@@ -7,10 +7,59 @@
 </description>
     <link>https://jubincn.github.io/index.html</link>
     <atom:link href="https://jubincn.github.io/feed-en.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 27 May 2018 17:04:53 +0800</pubDate>
-    <lastBuildDate>Sun, 27 May 2018 17:04:53 +0800</lastBuildDate>
+    <pubDate>Sun, 27 May 2018 17:13:06 +0800</pubDate>
+    <lastBuildDate>Sun, 27 May 2018 17:13:06 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
+    
+      <item>
+        <title>Intro To Ashmem Note</title>
+        <description>&lt;h1 id=&quot;note-on-introduction-to-ashmem&quot;&gt;Note on “Introduction to Ashmem”&lt;/h1&gt;
+&lt;h2 id=&quot;what-is-ashmem&quot;&gt;What is Ashmem&lt;/h2&gt;
+&lt;p&gt;Ashmem is short for Android Shared Memory.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-does-ashmen-do&quot;&gt;What does Ashmen do?&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Share memory between process.&lt;/li&gt;
+  &lt;li&gt;A mechanism for Linux to recalim memory if it find itself under memory pressure.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;how-does-ashmem-allowed-other-process-to-share-memory&quot;&gt;How does ashmem allowed other process to share memory&lt;/h3&gt;
+&lt;p&gt;I didn’t understand the whole process. It seems has something to do with binder and mmap. Read &lt;a href=&quot;http://notjustburritos.tumblr.com/post/21442138796/an-introduction-to-android-shared-memory&quot;&gt;original post&lt;/a&gt; for more details.&lt;/p&gt;
+
+&lt;h3 id=&quot;why-is-ashmem-better&quot;&gt;Why is ashmem better?&lt;/h3&gt;
+&lt;font color=&quot;red&quot;&gt;_important_&lt;/font&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;The ashmem memory dies when the process dies.&lt;/strong&gt; (No chance killing process with some memory reserves)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Ashmem allows a process share memory after it has already forked&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;how-does-ashmem-save-memory&quot;&gt;How does ashmem save memory?&lt;/h3&gt;
+&lt;font color=&quot;red&quot;&gt;_important_&lt;/font&gt;
+&lt;p&gt;Asmem allows a process to designate some pages of its memory as reclaimable. This is called unpinning a section of memory.&lt;/p&gt;
+
+&lt;p&gt;When the section is unpinned, OS can reclaim the pages and use them if memory goes low.&lt;/p&gt;
+
+&lt;p&gt;The process can pin these pages back. The driver will return “ASHMEM_NOT_PURGED” or “ASHMEM_WAS_PURGED” to indicate whether these pages are reclaimed while they are unpinned. If they are purged, the data is gone. This is good for handling cache data.&lt;/p&gt;
+
+&lt;p&gt;Using ashmem, a process can cache gressively without warrying about memory pressure.&lt;/p&gt;
+
+&lt;h3 id=&quot;how-ashmem-do-all-these-things&quot;&gt;How ashmem do all these things&lt;/h3&gt;
+&lt;p&gt;See the original post for more details.&lt;/p&gt;
+
+&lt;h4 id=&quot;original-post&quot;&gt;Original Post&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;http://notjustburritos.tumblr.com/post/21442138796/an-introduction-to-android-shared-memory&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Sun, 27 May 2018 00:00:00 +0800</pubDate>
+        <link>https://jubincn.github.io/articles/2018/05/27/intro-to-ashmem-note.html</link>
+        <guid isPermaLink="true">https://jubincn.github.io/articles/2018/05/27/intro-to-ashmem-note.html</guid>
+        
+        
+        <category>articles</category>
+        
+      </item>
     
   </channel>
 </rss>
