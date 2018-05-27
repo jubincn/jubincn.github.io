@@ -12,14 +12,15 @@
 <p>I didn’t understand the whole process. It seems has something to do with binder and mmap. Read <a href="http://notjustburritos.tumblr.com/post/21442138796/an-introduction-to-android-shared-memory">original post</a> for more details.</p>
 
 <h3 id="why-is-ashmem-better">Why is ashmem better?</h3>
-<font color="red">_important_</font>
+<font color="red">important</font>
 <ol>
   <li><strong>The ashmem memory dies when the process dies.</strong> (No chance killing process with some memory reserves)</li>
   <li><strong>Ashmem allows a process share memory after it has already forked</strong></li>
 </ol>
 
 <h3 id="how-does-ashmem-save-memory">How does ashmem save memory?</h3>
-<font color="red">_important_</font>
+<font color="red">important</font>
+
 <p>Asmem allows a process to designate some pages of its memory as reclaimable. This is called unpinning a section of memory.</p>
 
 <p>When the section is unpinned, OS can reclaim the pages and use them if memory goes low.</p>
@@ -31,7 +32,4 @@
 <h3 id="how-ashmem-do-all-these-things">How ashmem do all these things</h3>
 <p>See the original post for more details.</p>
 
-<h4 id="original-post">Original Post</h4>
-<blockquote>
-  <p>http://notjustburritos.tumblr.com/post/21442138796/an-introduction-to-android-shared-memory</p>
-</blockquote>
+<h4 id="original-post"><a href="http://notjustburritos.tumblr.com/post/21442138796/an-introduction-to-android-shared-memory">Original Post</a></h4>

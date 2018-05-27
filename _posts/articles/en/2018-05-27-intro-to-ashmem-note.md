@@ -10,12 +10,13 @@ Ashmem is short for Android Shared Memory.
 I didn't understand the whole process. It seems has something to do with binder and mmap. Read [original post](http://notjustburritos.tumblr.com/post/21442138796/an-introduction-to-android-shared-memory) for more details.
 
 ### Why is ashmem better?
-<font color="red">_important_</font>
+<font color="red">important</font>
 1. **The ashmem memory dies when the process dies.** (No chance killing process with some memory reserves)
 2. **Ashmem allows a process share memory after it has already forked**
 
 ### How does ashmem save memory?
-<font color="red">_important_</font>
+<font color="red">important</font>
+
 Asmem allows a process to designate some pages of its memory as reclaimable. This is called unpinning a section of memory.
 
 When the section is unpinned, OS can reclaim the pages and use them if memory goes low.
@@ -27,6 +28,4 @@ Using ashmem, a process can cache gressively without warrying about memory press
 ### How ashmem do all these things
 See the original post for more details.
 
-
-#### Original Post
-> http://notjustburritos.tumblr.com/post/21442138796/an-introduction-to-android-shared-memory
+#### [Original Post](http://notjustburritos.tumblr.com/post/21442138796/an-introduction-to-android-shared-memory)
