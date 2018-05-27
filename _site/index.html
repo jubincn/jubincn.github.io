@@ -204,8 +204,12 @@
         </div>
 
         <span><h1 id="note-on-introduction-to-ashmem">Note on “Introduction to Ashmem”</h1>
-<h2 id="what-is-ashmem">What is Ashmem</h2>
-<p>Ashmem is short for Android Shared Memory.</p>
+<h2 id="tldr">TL;DR</h2>
+<ol>
+  <li>Ashmem memory dies when the process dies.</li>
+  <li>Ashmem save memory by unpinning memory pages.</li>
+  <li>Reclaim unit for ashmem is section.</li>
+</ol>
 
 </span>
 

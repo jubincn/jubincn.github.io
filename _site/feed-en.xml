@@ -7,14 +7,21 @@
 </description>
     <link>https://jubincn.github.io/index.html</link>
     <atom:link href="https://jubincn.github.io/feed-en.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 27 May 2018 17:19:22 +0800</pubDate>
-    <lastBuildDate>Sun, 27 May 2018 17:19:22 +0800</lastBuildDate>
+    <pubDate>Sun, 27 May 2018 18:27:40 +0800</pubDate>
+    <lastBuildDate>Sun, 27 May 2018 18:27:40 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
     
       <item>
         <title>Intro To Ashmem Note</title>
         <description>&lt;h1 id=&quot;note-on-introduction-to-ashmem&quot;&gt;Note on “Introduction to Ashmem”&lt;/h1&gt;
+&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Ashmem memory dies when the process dies.&lt;/li&gt;
+  &lt;li&gt;Ashmem save memory by unpinning memory pages.&lt;/li&gt;
+  &lt;li&gt;Reclaim unit for ashmem is section.&lt;/li&gt;
+&lt;/ol&gt;
+
 &lt;h2 id=&quot;what-is-ashmem&quot;&gt;What is Ashmem&lt;/h2&gt;
 &lt;p&gt;Ashmem is short for Android Shared Memory.&lt;/p&gt;
 
@@ -29,6 +36,7 @@
 
 &lt;h3 id=&quot;why-is-ashmem-better&quot;&gt;Why is ashmem better?&lt;/h3&gt;
 &lt;font color=&quot;red&quot;&gt;important&lt;/font&gt;
+
 &lt;ol&gt;
   &lt;li&gt;&lt;strong&gt;The ashmem memory dies when the process dies.&lt;/strong&gt; (No chance killing process with some memory reserves)&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Ashmem allows a process share memory after it has already forked&lt;/strong&gt;&lt;/li&gt;
@@ -44,6 +52,13 @@
 &lt;p&gt;The process can pin these pages back. The driver will return “ASHMEM_NOT_PURGED” or “ASHMEM_WAS_PURGED” to indicate whether these pages are reclaimed while they are unpinned. If they are purged, the data is gone. This is good for handling cache data.&lt;/p&gt;
 
 &lt;p&gt;Using ashmem, a process can cache gressively without warrying about memory pressure.&lt;/p&gt;
+
+&lt;h3 id=&quot;how-ashmem-decide-when-to-claim-memory&quot;&gt;How ashmem decide when to claim memory?&lt;/h3&gt;
+&lt;p&gt;Ashmem registers a shrinker and call the shrink function when memory is low, telling it how many pages it want freed.&lt;/p&gt;
+
+&lt;p&gt;Ashmem reclaim unpinned pages using LRU algorithm.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Ashmem will free an entire section of memory.&lt;/em&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;how-ashmem-do-all-these-things&quot;&gt;How ashmem do all these things&lt;/h3&gt;
 &lt;p&gt;See the original post for more details.&lt;/p&gt;

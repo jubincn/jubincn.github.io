@@ -1,4 +1,9 @@
 # Note on "Introduction to Ashmem"
+## TL;DR
+1. Ashmem memory dies when the process dies.
+2. Ashmem save memory by unpinning memory pages.
+3. Reclaim unit for ashmem is section.
+
 ## What is Ashmem
 Ashmem is short for Android Shared Memory.
 
@@ -11,6 +16,7 @@ I didn't understand the whole process. It seems has something to do with binder 
 
 ### Why is ashmem better?
 <font color="red">important</font>
+
 1. **The ashmem memory dies when the process dies.** (No chance killing process with some memory reserves)
 2. **Ashmem allows a process share memory after it has already forked**
 
@@ -24,6 +30,13 @@ When the section is unpinned, OS can reclaim the pages and use them if memory go
 The process can pin these pages back. The driver will return "ASHMEM_NOT_PURGED" or "ASHMEM_WAS_PURGED" to indicate whether these pages are reclaimed while they are unpinned. If they are purged, the data is gone. This is good for handling cache data.
 
 Using ashmem, a process can cache gressively without warrying about memory pressure.
+
+### How ashmem decide when to claim memory?
+Ashmem registers a shrinker and call the shrink function when memory is low, telling it how many pages it want freed.
+
+Ashmem reclaim unpinned pages using LRU algorithm.
+
+*Ashmem will free an entire section of memory.*
 
 ### How ashmem do all these things
 See the original post for more details.
