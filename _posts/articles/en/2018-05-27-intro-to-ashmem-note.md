@@ -1,4 +1,3 @@
-# Note on "Introduction to Ashmem"
 ## TL;DR
 1. Ashmem memory dies when the process dies.
 2. Ashmem save memory by unpinning memory pages.

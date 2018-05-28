@@ -4,6 +4,16 @@
     
       <url>
 
+        <loc>https://jubincn.github.io/articles/2018/05/28/use-ui-automator-viewer-to-get-current-viewer.html</loc>
+        
+        <lastmod>2018-05-28T00:00:00+08:00</lastmod>
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+
         <loc>https://jubincn.github.io/articles/2018/05/27/intro-to-ashmem-note.html</loc>
         
         <lastmod>2018-05-27T00:00:00+08:00</lastmod>
@@ -40,7 +50,12 @@
   
     
       <url>
-        <loc>https://jubincn.github.io/contact-en</loc>
+        <loc>https://jubincn.github.io/contact.html</loc>
+        
+        
+        
+          <xhtml:link rel="alternate" hreflang="en" href="https://jubincn.github.io/contact.html" />
+        
         
         <changefreq>weekly</changefreq>
       </url>
