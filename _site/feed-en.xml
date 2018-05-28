@@ -7,8 +7,8 @@
 </description>
     <link>https://jubincn.github.io/index.html</link>
     <atom:link href="https://jubincn.github.io/feed-en.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 29 May 2018 01:39:36 +0800</pubDate>
-    <lastBuildDate>Tue, 29 May 2018 01:39:36 +0800</lastBuildDate>
+    <pubDate>Tue, 29 May 2018 01:44:19 +0800</pubDate>
+    <lastBuildDate>Tue, 29 May 2018 01:44:19 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
     
@@ -22,11 +22,11 @@
 &lt;h3 id=&quot;why-should-i-care-about-ui-automator-viewer&quot;&gt;Why should I care about UI Automator Viewer&lt;/h3&gt;
 &lt;p&gt;With uiautomatorviewer, we can inspect the layout hierarchy and view the properties of UI components that are visible on the foreground of the device. For example, we can get the view hierarchy of Play Store.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/gif/ui-automator-demo.gif&quot; alt=&quot;uiautomatorviewer demo gif&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/../assets/gif/ui-automator-demo.gif&quot; alt=&quot;uiautomatorviewer demo gif&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;how-to-use&quot;&gt;How to use?&lt;/h3&gt;
 &lt;p&gt;uiautomatorviewer is a tool delivered with android sdk. For mac users, you can find it in {HOME}/Library/Android/sdk/tools/bin/uiautomatorviewer. This is an binary execuable file and so you can exec it in terminal. Click device screenshot button and the view hierarchy is in front of you!
-&lt;img src=&quot;/assets/img/20180528-device-screenshot.png&quot; alt=&quot;device screenshot button&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/../assets/img/20180528-device-screenshot.png&quot; alt=&quot;device screenshot button&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 28 May 2018 00:00:00 +0800</pubDate>
         <link>https://jubincn.github.io/articles/2018/05/28/use-ui-automator-viewer-to-get-current-viewer.html</link>
