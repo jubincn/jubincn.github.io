@@ -9,4 +9,4 @@ With uiautomatorviewer, we can inspect the layout hierarchy and view the propert
 
 ### How to use?
 uiautomatorviewer is a tool delivered with android sdk. For mac users, you can find it in {HOME}/Library/Android/sdk/tools/bin/uiautomatorviewer. This is an binary execuable file and so you can exec it in terminal. Click device screenshot button and the view hierarchy is in front of you!
-![device screenshot button](/../assets/img/20180528-device-screenshot.png)
+![device screenshot button](/../assets/pic/20180528-device-screenshot.png)
