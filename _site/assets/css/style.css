@@ -801,6 +801,7 @@ a {
       padding: 2rem 1rem; } }
 
 .project-name {
+  color: #000;
   margin-top: 0;
   margin-bottom: 0.1rem; }
   @media screen and (min-width: 50em) {
