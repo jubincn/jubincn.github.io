@@ -1,7 +1,7 @@
 ## TL;DR
 1. Ashmem memory dies when the process dies.
-2. Ashmem save memory by unpinning memory pages.
-3. Reclaim unit for ashmem is section.
+2. Ashmem allows fork first and then share memory.
+3. Ashmem save memory by unpinning memory pages, reclaim unit for ashmem is section.
 
 ## What is Ashmem
 Ashmem is short for Android Shared Memory.
