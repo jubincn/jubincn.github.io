@@ -8,4 +8,4 @@
 ![Interactive Rebase](/../assets/gif/20181017-interactive-rebase-using-sourcetree.gif)
 
 #### Final Git History Screenshot
-![Final Git History](/../assets/pic/20181017-interactive-rebase-final-git-history.png)
+![Final Git History]({{ site.url }}/assets/pic/20181017-interactive-rebase-final-git-history.png)
