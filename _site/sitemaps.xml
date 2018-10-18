@@ -4,7 +4,27 @@
     
       <url>
 
-        <loc>https://jubincn.github.io/articles/2018/05/28/use-ui-automator-viewer-to-get-current-viewer.html</loc>
+        <loc>http://localhost:4000/articles/2018/10/17/interactive-rebase-using-sourcetree.html</loc>
+        
+        <lastmod>2018-10-17T00:00:00+08:00</lastmod>
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+
+        <loc>http://localhost:4000/articles/2018/07/30/annotations-for-java-friendly-kotlin-translate.html</loc>
+        
+        <lastmod>2018-07-30T00:00:00+08:00</lastmod>
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+
+        <loc>http://localhost:4000/articles/2018/05/28/use-ui-automator-viewer-to-get-current-viewer.html</loc>
         
         <lastmod>2018-05-28T00:00:00+08:00</lastmod>
         <changefreq>weekly</changefreq>
@@ -14,7 +34,7 @@
     
       <url>
 
-        <loc>https://jubincn.github.io/articles/2018/05/27/intro-to-ashmem-note.html</loc>
+        <loc>http://localhost:4000/articles/2018/05/27/intro-to-ashmem-note.html</loc>
         
         <lastmod>2018-05-27T00:00:00+08:00</lastmod>
         <changefreq>weekly</changefreq>
@@ -24,24 +44,11 @@
   
     
       <url>
-        <loc>https://jubincn.github.io/404.html</loc>
+        <loc>http://localhost:4000/404.html</loc>
         
         
         
-          <xhtml:link rel="alternate" hreflang="en" href="https://jubincn.github.io/404.html" />
-        
-        
-        <changefreq>weekly</changefreq>
-      </url>
-    
-  
-    
-      <url>
-        <loc>https://jubincn.github.io/about.html</loc>
-        
-        
-        
-          <xhtml:link rel="alternate" hreflang="en" href="https://jubincn.github.io/about.html" />
+          <xhtml:link rel="alternate" hreflang="en" href="http://localhost:4000/404.html" />
         
         
         <changefreq>weekly</changefreq>
@@ -50,24 +57,11 @@
   
     
       <url>
-        <loc>https://jubincn.github.io/contact.html</loc>
+        <loc>http://localhost:4000/about.html</loc>
         
         
         
-          <xhtml:link rel="alternate" hreflang="en" href="https://jubincn.github.io/contact.html" />
-        
-        
-        <changefreq>weekly</changefreq>
-      </url>
-    
-  
-    
-      <url>
-        <loc>https://jubincn.github.io/feed-en.xml</loc>
-        
-        
-        
-          <xhtml:link rel="alternate" hreflang="en" href="https://jubincn.github.io/feed-en.xml" />
+          <xhtml:link rel="alternate" hreflang="en" href="http://localhost:4000/about.html" />
         
         
         <changefreq>weekly</changefreq>
@@ -76,24 +70,11 @@
   
     
       <url>
-        <loc>https://jubincn.github.io/index.html</loc>
+        <loc>http://localhost:4000/contact.html</loc>
         
         
         
-          <xhtml:link rel="alternate" hreflang="en" href="https://jubincn.github.io/index.html" />
-        
-        
-        <changefreq>weekly</changefreq>
-      </url>
-    
-  
-    
-      <url>
-        <loc>https://jubincn.github.io/now.html</loc>
-        
-        
-        
-          <xhtml:link rel="alternate" hreflang="en" href="https://jubincn.github.io/now.html" />
+          <xhtml:link rel="alternate" hreflang="en" href="http://localhost:4000/contact.html" />
         
         
         <changefreq>weekly</changefreq>
@@ -102,11 +83,11 @@
   
     
       <url>
-        <loc>https://jubincn.github.io/projects.html</loc>
+        <loc>http://localhost:4000/feed-en.xml</loc>
         
         
         
-          <xhtml:link rel="alternate" hreflang="en" href="https://jubincn.github.io/projects.html" />
+          <xhtml:link rel="alternate" hreflang="en" href="http://localhost:4000/feed-en.xml" />
         
         
         <changefreq>weekly</changefreq>
@@ -115,7 +96,12 @@
   
     
       <url>
-        <loc>https://jubincn.github.io/sitemaps.xml</loc>
+        <loc>http://localhost:4000/index.html</loc>
+        
+        
+        
+          <xhtml:link rel="alternate" hreflang="en" href="http://localhost:4000/index.html" />
+        
         
         <changefreq>weekly</changefreq>
       </url>
@@ -123,7 +109,41 @@
   
     
       <url>
-        <loc>https://jubincn.github.io/assets/css/style.css</loc>
+        <loc>http://localhost:4000/now.html</loc>
+        
+        
+        
+          <xhtml:link rel="alternate" hreflang="en" href="http://localhost:4000/now.html" />
+        
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>http://localhost:4000/projects.html</loc>
+        
+        
+        
+          <xhtml:link rel="alternate" hreflang="en" href="http://localhost:4000/projects.html" />
+        
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>http://localhost:4000/sitemaps.xml</loc>
+        
+        <changefreq>weekly</changefreq>
+      </url>
+    
+  
+    
+      <url>
+        <loc>http://localhost:4000/assets/css/style.css</loc>
         
         <changefreq>weekly</changefreq>
       </url>

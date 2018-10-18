@@ -2,14 +2,322 @@
 
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Bin&#39;s Blog</title>
-    <description>Bin&#39;s Blog
+    <title>Bin's Blog</title>
+    <description>Bin's Blog
 </description>
-    <link>https://jubincn.github.io/index.html</link>
-    <atom:link href="https://jubincn.github.io/feed-en.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 29 May 2018 12:52:34 +0800</pubDate>
-    <lastBuildDate>Tue, 29 May 2018 12:52:34 +0800</lastBuildDate>
+    <link>http://localhost:4000/index.html</link>
+    <atom:link href="http://localhost:4000/feed-en.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 18 Oct 2018 09:21:44 +0800</pubDate>
+    <lastBuildDate>Thu, 18 Oct 2018 09:21:44 +0800</lastBuildDate>
     <generator>Jekyll v3.6.3</generator>
+    
+    
+      <item>
+        <title>Interactive Rebase Using Sourcetree</title>
+        <description>&lt;h3 id=&quot;official-docs&quot;&gt;Official Docs&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.atlassian.com/blog/sourcetree/interactive-rebase-sourcetree&quot;&gt;Interactive rebase in Sourcetree&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;screenshot&quot;&gt;Screenshot&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.atlassian.com/blog/sourcetree/interactive-rebase-sourcetree&quot;&gt;The Official Blog&lt;/a&gt; is concise and sufficient. And I put a screenshot here to make it easier to understand.&lt;/p&gt;
+
+&lt;h4 id=&quot;process-in-gif&quot;&gt;Process in gif&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/gif/20181017-interactive-rebase-using-sourcetree.gif&quot; alt=&quot;Interactive Rebase&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;final-git-history-screenshot&quot;&gt;Final Git History Screenshot&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/pic/20181017-interactive-rebase-final-git-history.png&quot; alt=&quot;Final Git History&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 17 Oct 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/articles/2018/10/17/interactive-rebase-using-sourcetree.html</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2018/10/17/interactive-rebase-using-sourcetree.html</guid>
+        
+        
+        <category>articles</category>
+        
+      </item>
+    
+      <item>
+        <title>Annotations For Java Friendly Kotlin Translate</title>
+        <description>
+&lt;p&gt;&lt;a href=&quot;https://proandroiddev.com/annotations-for-your-java-friendly-kotlin-code-badfbedec14&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;对于部分使用kotlin，部分使用java的android项目而言，java和kotlin的相互调用是个大坑。这篇文章讲了kotlin里常用的与java调用相关的注解。&lt;/p&gt;
+
+&lt;h2 id=&quot;java注解&quot;&gt;Java注解&lt;/h2&gt;
+&lt;h3 id=&quot;jvmfield&quot;&gt;JvmField&lt;/h3&gt;
+&lt;h4 id=&quot;用途&quot;&gt;用途&lt;/h4&gt;
+&lt;p&gt;让Kotlin编译器将这个字段编译为public，而不是生成getter/setter。&lt;/p&gt;
+
+&lt;h4 id=&quot;常用场景&quot;&gt;常用场景&lt;/h4&gt;
+&lt;p&gt;在Companion或其他object中的字段。&lt;/p&gt;
+
+&lt;h4 id=&quot;原理&quot;&gt;原理&lt;/h4&gt;
+&lt;p&gt;看下源码，简单说就是getter/setter -&amp;gt; public field&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h5 id=&quot;没有jvmfield的时候&quot;&gt;没有JvmField的时候&lt;/h5&gt;
+
+&lt;h6 id=&quot;object&quot;&gt;object&lt;/h6&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;object Constants {    
+    val PERMISSIONS = listOf(&quot;Internet&quot;, &quot;Location&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public final class Constant {
+   @NotNull
+   private static final List PERMISSIONS;
+   public static final Constant INSTANCE;
+
+   @NotNull
+   public final List getPERMISSIONS() {
+      return PERMISSIONS;
+   }
+
+   static {
+      Constant var0 = new Constant();
+      INSTANCE = var0;
+      PERMISSIONS = CollectionsKt.listOf(new String[]{&quot;Internet&quot;, &quot;Location&quot;});
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h6 id=&quot;class&quot;&gt;class&lt;/h6&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Constant {
+    val PERMISSIONS = listOf(&quot;Internet&quot;, &quot;Location&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public final class Constant {
+   @NotNull
+   private final List PERMISSIONS = CollectionsKt.listOf(new String[]{&quot;Internet&quot;, &quot;Location&quot;});
+
+   @NotNull
+   public final List getPERMISSIONS() {
+      return this.PERMISSIONS;
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;有jvmfield的时候&quot;&gt;有JvmField的时候&lt;/h5&gt;
+&lt;h6 id=&quot;object-1&quot;&gt;object&lt;/h6&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;object Constant {
+    @JvmField
+    val PERMISSIONS = listOf(&quot;Internet&quot;, &quot;Location&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public final class Constant {
+   @JvmField
+   @NotNull
+   public static final List PERMISSIONS;
+   public static final Constant INSTANCE;
+
+   static {
+      Constant var0 = new Constant();
+      INSTANCE = var0;
+      PERMISSIONS = CollectionsKt.listOf(new String[]{&quot;Internet&quot;, &quot;Location&quot;});
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h6 id=&quot;class-1&quot;&gt;class&lt;/h6&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Constant {
+    @JvmField
+    val PERMISSIONS = listOf(&quot;Internet&quot;, &quot;Location&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public final class Constant {
+   @JvmField
+   @NotNull
+   public final List PERMISSIONS = CollectionsKt.listOf(new String[]{&quot;Internet&quot;, &quot;Location&quot;});
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;jvmstatic&quot;&gt;JvmStatic&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;用在方法上：生成一个静态方法。&lt;/li&gt;
+  &lt;li&gt;用在字段上：生成静态的getter和setter&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;用在方法上&quot;&gt;用在方法上&lt;/h4&gt;
+&lt;p&gt;不带@JvmStatic的时候，这个方法是一个实例方法，调用时需要使用Utils.INSTANCE.doSomething()&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;object Utils {
+    fun doSomething(){  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public final class Utils {
+   public static final Utils INSTANCE;
+
+   public final void doSomething() {
+   }
+
+   static {
+      Utils var0 = new Utils();
+      INSTANCE = var0;
+   }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;使用JvmStatic后，Kotlin编译器会将此方法转为static方法，此时可以直接用Utils.doSomething()&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;object Utils {
+    @JvmStatic
+    fun doSomething(){  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public final class Utils {
+   public static final Utils INSTANCE;
+
+   @JvmStatic
+   public static final void doSomething() {
+   }
+
+   static {
+      Utils var0 = new Utils();
+      INSTANCE = var0;
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h4 id=&quot;用在变量上&quot;&gt;用在变量上&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;object Utils {
+    var values = listOf(&quot;Test 1&quot;, &quot;Test 2&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public final class Utils {
+   @NotNull
+   private static List values;
+   public static final Utils INSTANCE;
+
+   @NotNull
+   public final List getValues() {
+      return values;
+   }
+
+   public final void setValues(@NotNull List var1) {
+      Intrinsics.checkParameterIsNotNull(var1, &quot;&amp;lt;set-?&amp;gt;&quot;);
+      values = var1;
+   }
+
+   static {
+      Utils var0 = new Utils();
+      INSTANCE = var0;
+      values = CollectionsKt.listOf(new String[]{&quot;Test 1&quot;, &quot;Test 2&quot;});
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;对于变量，JvmStatic的作用是将setter和getter改为static方法。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;object Utils {
+    @JvmStatic
+    var values = listOf(&quot;Test 1&quot;, &quot;Test 2&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public final class Utils {
+   @NotNull
+   private static List values;
+   public static final Utils INSTANCE;  
+
+   @NotNull
+   public static final List getValues() {
+      return values;
+   }
+
+   public static final void setValues(@NotNull List var0) {
+      Intrinsics.checkParameterIsNotNull(var0, &quot;&amp;lt;set-?&amp;gt;&quot;);
+      values = var0;
+   }
+
+   static {
+      Utils var0 = new Utils();
+      INSTANCE = var0;
+      values = CollectionsKt.listOf(new String[]{&quot;Test 1&quot;, &quot;Test 2&quot;});
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h4 id=&quot;不能使用jvmstatic的场景&quot;&gt;不能使用JvmStatic的场景&lt;/h4&gt;
+&lt;p&gt;当一个成员变量含有open, override或const的modifier时，不能使用@JvmStatic注解。&lt;/p&gt;
+
+&lt;h3 id=&quot;jvmoverloads&quot;&gt;JvmOverloads&lt;/h3&gt;
+&lt;p&gt;在Kotlin中，有默认构造方法，这些方法在使用kotlin调用的时候很方便，相当于定义了多个构造函数。但使用Java调用时，却最多只能用两个：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;含有全部参数的构造函数。&lt;/li&gt;
+  &lt;li&gt;在所有参数都有默认参数的时候，可以调用它的无参构造函数。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;kotlin中带默认参数构造函数的使用&quot;&gt;Kotlin中带默认参数构造函数的使用&lt;/h4&gt;
+&lt;p&gt;下面这个构造函数，三个参数都带有默认值&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class User constructor (
+        val name: String = &quot;Test&quot;,
+        val lastName: String = &quot;Testy&quot;,
+        val age: Int = 0
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;使用时可以这么用：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;val user1 = User()
+val user2 = User(name = &quot;Bruno&quot;)
+val user3 = User(name = &quot;Bruno&quot;, lastName = &quot;Aybar&quot;)
+val user4 = User(name = &quot;Bruno&quot;, lastName = &quot;Aybar&quot;, age = 21)
+val user5 = User(lastName = &quot;Aybar&quot;)
+val user6 = User(lastName = &quot;Aybar&quot;, age = 21)
+val user7 = User(age = 21)
+val user8 = User(age = 21, name = &quot;Bruno&quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;@JvmOverloads能部分解决这个问题，使用@JvmOverloads后，这里会多出三个构造方法&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public final class User {
+   @JvmOverloads
+   public User(@NotNull String name, @NotNull String lastName) {
+      this(name, lastName, 0, 4, (DefaultConstructorMarker)null);
+   }
+
+   @JvmOverloads
+   public User(@NotNull String name) {
+      this(name, (String)null, 0, 6, (DefaultConstructorMarker)null);
+   }
+
+   @JvmOverloads
+   public User() {
+      this((String)null, (String)null, 0, 7, (DefaultConstructorMarker)null);
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;filejvmname-jvmname-getjvmname&quot;&gt;@file:JvmName @JvmName @get:JvmName&lt;/h3&gt;
+&lt;p&gt;给某个文件或者方法，字段换一个Java调用时使用的名字。&lt;/p&gt;
+&lt;h4 id=&quot;filejvmname&quot;&gt;@file:JvmName&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//file name: Utils.kt
+fun doSomething() { ... }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在Java中可以这么调用：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;UtilsKt.doSomething();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;加上@file:JvmName(“Utils”)后，就可以使用Utils这个名字来调用了。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//file name: Utils.kt
+@file:JvmName(&quot;Utils&quot;)
+fun doSomething() { ... }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在Java中调用：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Utils.doSomething();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;方法名也可以改，例如：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//file name: Utils.kt
+@file:JvmName(&quot;Utils&quot;)
+@JvmName(&quot;doSomethingElse&quot;)
+fun doSomething() { ... }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在Java中调用：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//Java
+Utils.doSomethingElse();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在Kotlin中调用：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//Kotlin
+Utils.doSomething()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Mon, 30 Jul 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/articles/2018/07/30/annotations-for-java-friendly-kotlin-translate.html</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2018/07/30/annotations-for-java-friendly-kotlin-translate.html</guid>
+        
+        
+        <category>articles</category>
+        
+      </item>
     
       <item>
         <title>Use Ui Automator Viewer To Get Current Viewer</title>
@@ -28,14 +336,14 @@
 &lt;img src=&quot;/../assets/pic/20180528-device-screenshot.png&quot; alt=&quot;device screenshot button&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 28 May 2018 00:00:00 +0800</pubDate>
-        <link>https://jubincn.github.io/articles/2018/05/28/use-ui-automator-viewer-to-get-current-viewer.html</link>
-        <guid isPermaLink="true">https://jubincn.github.io/articles/2018/05/28/use-ui-automator-viewer-to-get-current-viewer.html</guid>
-
-
+        <link>http://localhost:4000/articles/2018/05/28/use-ui-automator-viewer-to-get-current-viewer.html</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2018/05/28/use-ui-automator-viewer-to-get-current-viewer.html</guid>
+        
+        
         <category>articles</category>
-
+        
       </item>
-
+    
       <item>
         <title>Intro To Ashmem Note</title>
         <description>&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
@@ -89,13 +397,13 @@
 &lt;h4 id=&quot;original-post&quot;&gt;&lt;a href=&quot;http://notjustburritos.tumblr.com/post/21442138796/an-introduction-to-android-shared-memory&quot;&gt;Original Post&lt;/a&gt;&lt;/h4&gt;
 </description>
         <pubDate>Sun, 27 May 2018 00:00:00 +0800</pubDate>
-        <link>https://jubincn.github.io/articles/2018/05/27/intro-to-ashmem-note.html</link>
-        <guid isPermaLink="true">https://jubincn.github.io/articles/2018/05/27/intro-to-ashmem-note.html</guid>
-
-
+        <link>http://localhost:4000/articles/2018/05/27/intro-to-ashmem-note.html</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2018/05/27/intro-to-ashmem-note.html</guid>
+        
+        
         <category>articles</category>
-
+        
       </item>
-
+    
   </channel>
 </rss>

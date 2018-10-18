@@ -1,0 +1,272 @@
+
+<p><a href="https://proandroiddev.com/annotations-for-your-java-friendly-kotlin-code-badfbedec14">原文地址</a></p>
+
+<p>对于部分使用kotlin，部分使用java的android项目而言，java和kotlin的相互调用是个大坑。这篇文章讲了kotlin里常用的与java调用相关的注解。</p>
+
+<h2 id="java注解">Java注解</h2>
+<h3 id="jvmfield">JvmField</h3>
+<h4 id="用途">用途</h4>
+<p>让Kotlin编译器将这个字段编译为public，而不是生成getter/setter。</p>
+
+<h4 id="常用场景">常用场景</h4>
+<p>在Companion或其他object中的字段。</p>
+
+<h4 id="原理">原理</h4>
+<p>看下源码，简单说就是getter/setter -&gt; public field</p>
+
+<hr />
+<h5 id="没有jvmfield的时候">没有JvmField的时候</h5>
+
+<h6 id="object">object</h6>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>object Constants {    
+    val PERMISSIONS = listOf("Internet", "Location")
+}
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public final class Constant {
+   @NotNull
+   private static final List PERMISSIONS;
+   public static final Constant INSTANCE;
+
+   @NotNull
+   public final List getPERMISSIONS() {
+      return PERMISSIONS;
+   }
+
+   static {
+      Constant var0 = new Constant();
+      INSTANCE = var0;
+      PERMISSIONS = CollectionsKt.listOf(new String[]{"Internet", "Location"});
+   }
+}
+</code></pre></div></div>
+<h6 id="class">class</h6>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Constant {
+    val PERMISSIONS = listOf("Internet", "Location")
+}
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public final class Constant {
+   @NotNull
+   private final List PERMISSIONS = CollectionsKt.listOf(new String[]{"Internet", "Location"});
+
+   @NotNull
+   public final List getPERMISSIONS() {
+      return this.PERMISSIONS;
+   }
+}
+</code></pre></div></div>
+
+<h5 id="有jvmfield的时候">有JvmField的时候</h5>
+<h6 id="object-1">object</h6>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>object Constant {
+    @JvmField
+    val PERMISSIONS = listOf("Internet", "Location")
+}
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public final class Constant {
+   @JvmField
+   @NotNull
+   public static final List PERMISSIONS;
+   public static final Constant INSTANCE;
+
+   static {
+      Constant var0 = new Constant();
+      INSTANCE = var0;
+      PERMISSIONS = CollectionsKt.listOf(new String[]{"Internet", "Location"});
+   }
+}
+</code></pre></div></div>
+<h6 id="class-1">class</h6>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Constant {
+    @JvmField
+    val PERMISSIONS = listOf("Internet", "Location")
+}
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public final class Constant {
+   @JvmField
+   @NotNull
+   public final List PERMISSIONS = CollectionsKt.listOf(new String[]{"Internet", "Location"});
+}
+
+</code></pre></div></div>
+<h3 id="jvmstatic">JvmStatic</h3>
+<ul>
+  <li>用在方法上：生成一个静态方法。</li>
+  <li>用在字段上：生成静态的getter和setter</li>
+</ul>
+
+<h4 id="用在方法上">用在方法上</h4>
+<p>不带@JvmStatic的时候，这个方法是一个实例方法，调用时需要使用Utils.INSTANCE.doSomething()</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>object Utils {
+    fun doSomething(){  }
+}
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public final class Utils {
+   public static final Utils INSTANCE;
+
+   public final void doSomething() {
+   }
+
+   static {
+      Utils var0 = new Utils();
+      INSTANCE = var0;
+   }
+}
+
+</code></pre></div></div>
+<p>使用JvmStatic后，Kotlin编译器会将此方法转为static方法，此时可以直接用Utils.doSomething()</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>object Utils {
+    @JvmStatic
+    fun doSomething(){  }
+}
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public final class Utils {
+   public static final Utils INSTANCE;
+
+   @JvmStatic
+   public static final void doSomething() {
+   }
+
+   static {
+      Utils var0 = new Utils();
+      INSTANCE = var0;
+   }
+}
+</code></pre></div></div>
+<h4 id="用在变量上">用在变量上</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>object Utils {
+    var values = listOf("Test 1", "Test 2")
+}
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public final class Utils {
+   @NotNull
+   private static List values;
+   public static final Utils INSTANCE;
+
+   @NotNull
+   public final List getValues() {
+      return values;
+   }
+
+   public final void setValues(@NotNull List var1) {
+      Intrinsics.checkParameterIsNotNull(var1, "&lt;set-?&gt;");
+      values = var1;
+   }
+
+   static {
+      Utils var0 = new Utils();
+      INSTANCE = var0;
+      values = CollectionsKt.listOf(new String[]{"Test 1", "Test 2"});
+   }
+}
+</code></pre></div></div>
+<p>对于变量，JvmStatic的作用是将setter和getter改为static方法。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>object Utils {
+    @JvmStatic
+    var values = listOf("Test 1", "Test 2")
+}
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public final class Utils {
+   @NotNull
+   private static List values;
+   public static final Utils INSTANCE;  
+
+   @NotNull
+   public static final List getValues() {
+      return values;
+   }
+
+   public static final void setValues(@NotNull List var0) {
+      Intrinsics.checkParameterIsNotNull(var0, "&lt;set-?&gt;");
+      values = var0;
+   }
+
+   static {
+      Utils var0 = new Utils();
+      INSTANCE = var0;
+      values = CollectionsKt.listOf(new String[]{"Test 1", "Test 2"});
+   }
+}
+</code></pre></div></div>
+<h4 id="不能使用jvmstatic的场景">不能使用JvmStatic的场景</h4>
+<p>当一个成员变量含有open, override或const的modifier时，不能使用@JvmStatic注解。</p>
+
+<h3 id="jvmoverloads">JvmOverloads</h3>
+<p>在Kotlin中，有默认构造方法，这些方法在使用kotlin调用的时候很方便，相当于定义了多个构造函数。但使用Java调用时，却最多只能用两个：</p>
+<ol>
+  <li>含有全部参数的构造函数。</li>
+  <li>在所有参数都有默认参数的时候，可以调用它的无参构造函数。</li>
+</ol>
+
+<h4 id="kotlin中带默认参数构造函数的使用">Kotlin中带默认参数构造函数的使用</h4>
+<p>下面这个构造函数，三个参数都带有默认值</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class User constructor (
+        val name: String = "Test",
+        val lastName: String = "Testy",
+        val age: Int = 0
+)
+</code></pre></div></div>
+<p>使用时可以这么用：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val user1 = User()
+val user2 = User(name = "Bruno")
+val user3 = User(name = "Bruno", lastName = "Aybar")
+val user4 = User(name = "Bruno", lastName = "Aybar", age = 21)
+val user5 = User(lastName = "Aybar")
+val user6 = User(lastName = "Aybar", age = 21)
+val user7 = User(age = 21)
+val user8 = User(age = 21, name = "Bruno")
+</code></pre></div></div>
+<p>@JvmOverloads能部分解决这个问题，使用@JvmOverloads后，这里会多出三个构造方法</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public final class User {
+   @JvmOverloads
+   public User(@NotNull String name, @NotNull String lastName) {
+      this(name, lastName, 0, 4, (DefaultConstructorMarker)null);
+   }
+
+   @JvmOverloads
+   public User(@NotNull String name) {
+      this(name, (String)null, 0, 6, (DefaultConstructorMarker)null);
+   }
+
+   @JvmOverloads
+   public User() {
+      this((String)null, (String)null, 0, 7, (DefaultConstructorMarker)null);
+   }
+}
+</code></pre></div></div>
+<h3 id="filejvmname-jvmname-getjvmname">@file:JvmName @JvmName @get:JvmName</h3>
+<p>给某个文件或者方法，字段换一个Java调用时使用的名字。</p>
+<h4 id="filejvmname">@file:JvmName</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//file name: Utils.kt
+fun doSomething() { ... }
+</code></pre></div></div>
+<p>在Java中可以这么调用：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UtilsKt.doSomething();
+</code></pre></div></div>
+<p>加上@file:JvmName(“Utils”)后，就可以使用Utils这个名字来调用了。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//file name: Utils.kt
+@file:JvmName("Utils")
+fun doSomething() { ... }
+</code></pre></div></div>
+<p>在Java中调用：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Utils.doSomething();
+</code></pre></div></div>
+<p>方法名也可以改，例如：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//file name: Utils.kt
+@file:JvmName("Utils")
+@JvmName("doSomethingElse")
+fun doSomething() { ... }
+</code></pre></div></div>
+<p>在Java中调用：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//Java
+Utils.doSomethingElse();
+</code></pre></div></div>
+<p>在Kotlin中调用：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//Kotlin
+Utils.doSomething()
+</code></pre></div></div>
