@@ -14,7 +14,7 @@
 
 ## Custom filters  
 #### In the same popup shown in step 1, click "+" in Filters panel.
-![Add Filter]({{ site.url }}/20181023-6-add-fitler.png)
+![Add Filter]({{ site.url }}/assets/pic/20181023-6-add-fitler.png)
 
 #### Input filter name and select patterns.
 ![Edit Filter]({{ site.url }}/assets/pic/20181023-5-edit-filter.png)
