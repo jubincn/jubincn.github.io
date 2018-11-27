@@ -6,22 +6,25 @@ When we want to display text in a view, TextView is almost the only choice. Its 
 ### Display text in Android
 1. TextView
 TextView is a one of the most complicated widget in Android with 11947 lines of code in Android API 26. However, there are few codes directly related to text itself in TextView and they are handled by Layout and its subclasses. TextView provides us with plenty of handy function related to text display:
-* CompoundDrawable
-* IME related
-* Cursor
-* Text Selection, paste
-* Autofill
-* AutoSize
-* Hint
-* Cache and reusing
+
+ * CompoundDrawable
+ * IME related
+ * Cursor
+ * Text Selection, paste
+ * Autofill
+ * AutoSize
+ * Hint
+ * Cache and reusing
 
 2. Custom View using android.text.Layout implementation.
 TextView relies on Layout to display text.
 > A base class that manages text layout in visual elements on the screen.
-> For text that will be edited, use a DynamicLayout, which will be updated as the text changes. For text that will not change, use a StaticLayout.
-2.1 BoringLayout
-2.2 StaticLayout
-2.3 DynamicLayout
+>> For text that will be edited, use a DynamicLayout, which will be updated as the text changes. For text that will not change, use a StaticLayout.
+
+ * BoringLayout
+ 
+ * StaticLayout
+ * DynamicLayout
 3. Custom View using Canvas.drawText(), Canvas.drawTextRun(), Canvas.drawTextOnPath()
 4. WebView
 
