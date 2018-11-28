@@ -19,20 +19,85 @@ TextView is a one of the most complicated widget in Android with 11947 lines of 
 2. Custom View using android.text.Layout implementation.
 TextView relies on Layout to display text.
 > A base class that manages text layout in visual elements on the screen.
+<<<<<<< HEAD
 >> For text that will be edited, use a DynamicLayout, which will be updated as the text changes. For text that will not change, use a StaticLayout.
 
  * BoringLayout
  
  * StaticLayout
  * DynamicLayout
+=======
+> For text that will be edited, use a DynamicLayout, which will be updated as the text changes. For text that will not change, use a StaticLayout.
+2.1 BoringLayout
+2.2 StaticLayout
+2.3 DynamicLayout
+
+>>>>>>> 3ca910211f7bf9cfa4a1d5ee07123866d92496a2
 3. Custom View using Canvas.drawText(), Canvas.drawTextRun(), Canvas.drawTextOnPath()
+These drawText call is implemented in native code. You will find more on how native code draw text in TextView Architecture section.
+3.1 Canvas.drawText()
+Canvas.drawText() methods can be divided to two different series, one with parameter String, the other with parameter CharSequence.
+3.1.1 public void drawText (String text, float x, float y, Paint paint)
+* x: The x-coordinate of origin for where to draw the text
+* y: The y-coordinate of origin for where to draw the text
+The x, y here is different from other Canvas.draw() method. They are positioned at left bottom corner of the text. You can find more on [Hencoder's Blog](https://hencoder.com/ui-1-3)
+
+![x,y of canvas text](/../assets/pic/20181125-xy-canvas-draw-text-hencoder.jpg)
+
+This method simply call native method to drawText. The following snippet is from Android SDK 28, [BaseCanvas.java](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/graphics/java/android/graphics/BaseCanvas.java)
+```java
+public void drawText(@NonNull String text, float x, float y, @NonNull Paint paint) {
+    throwIfHasHwBitmapInSwMode(paint);
+    nDrawText(mNativeCanvasWrapper, text, 0, text.length(), x, y, paint.mBidiFlags,
+            paint.getNativeInstance());
+}
+```
+
+3.1.2 public void drawText(@NonNull CharSequence text, int start, int end, float x, float y,
+            @NonNull Paint paint) {
+Lets check the implementation:
+```java
+public void drawText(@NonNull CharSequence text, int start, int end, float x, float y,
+        @NonNull Paint paint) {
+    // delete some checks
+
+    if (text instanceof String || text instanceof SpannedString ||
+            text instanceof SpannableString) {
+        nDrawText(mNativeCanvasWrapper, text.toString(), start, end, x, y,
+                paint.mBidiFlags, paint.getNativeInstance());
+    } else if (text instanceof GraphicsOperations) {
+        ((GraphicsOperations) text).drawText(this, start, end, x, y,
+                paint);
+    } else {
+        char[] buf = TemporaryBuffer.obtain(end - start);
+        TextUtils.getChars(text, start, end, buf, 0);
+        nDrawText(mNativeCanvasWrapper, buf, 0, end - start, x, y,
+                paint.mBidiFlags, paint.getNativeInstance());
+        TemporaryBuffer.recycle(buf);
+    }
+}
+```
+For string, SpannedString and SpannableString, they are same as String since it simply call text.toString(). For GraphicsOperations, the drawText() is called. GraphicsOperations is an interface
+and according to official docs:
+> Please implement this interface if your CharSequence can do quick draw/measure/widths calculations from an internal array.
+I will stop here since this is an introduction and there are few materials on it.
+
+3.2 Canvas.drawTextRun()
+Method signature: 
+> public void drawTextRun(@NonNull CharSequence text, int start, int end, int contextStart,
+>            int contextEnd, float x, float y, boolean isRtl, @NonNull Paint paint)
+
 4. WebView
+WebView is not discussed here.
 
 I am not sure how WebView draw text. For other three native method, they actually all use Canvas.drawText() method family under the hood.
-
 
 
 
 ## Why should we care about TextView?
 
 ## TextView Architecture
+
+
+## Reference
+https://hencoder.com/ui-1-3/
