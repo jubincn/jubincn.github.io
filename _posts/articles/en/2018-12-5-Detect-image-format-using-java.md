@@ -5,7 +5,7 @@ We used to judge a file type by its suffix. For example, .gif for gif format, .j
 There is a file header for every common used image file, we can detect file type using it. The popular file header is listed below:
 
 * Extended WebP
-```Extended WebP
+```Java
 /**
  * Each VP8X WebP image has "features" byte following its ChunkHeader('VP8X')
  */
@@ -38,6 +38,7 @@ private static final byte[] PNG_HEADER = new byte[] {
 ```
 
 * GIF
+
 ```Java
 private static final byte[] GIF_HEADER_87A = ImageFormatCheckerUtils.asciiBytes("GIF87a");
 private static final byte[] GIF_HEADER_89A = ImageFormatCheckerUtils.asciiBytes("GIF89a");
@@ -54,7 +55,8 @@ public static byte[] asciiBytes(String value) {
 ```
 
 * BMP_HEADER_LENGTH
-```BMP
+
+```Java
 /**
  * Every bmp image starts with "BM" bytes
  */
@@ -64,7 +66,7 @@ private static final byte[] BMP_HEADER = ImageFormatCheckerUtils.asciiBytes("BM"
 ## Detect file type with Fresco
 There is a helper class in Fresco which can help detect image file type with an input stream. We can use that util class in our project:
 ```
-/**
+  /**
     * @return {@link com.facebook.imageformat.DefaultImageFormats}
     */
    @NonNull
@@ -131,6 +133,7 @@ public ImageFormat determineImageFormat(final InputStream is) throws IOException
 }
 ```
 3. There is a default implementation to calculate mMaxHeaderLength, which covers most commonly used image format.
+
 ```Java
 /**
   * Maximum header size for any image type.
