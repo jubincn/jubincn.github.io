@@ -1,0 +1,422 @@
+<h2 id="suffix-is-not-enough">Suffix is not enough</h2>
+<p>We used to judge a file type by its suffix. For example, .gif for gif format, .jpg for jpeg and .png for png files. However, this is not a reliable way to detect a file type since we can change file suffix to any name we want. Check file header is a more preferable to detect file type.</p>
+
+<h2 id="file-header">File header</h2>
+<p>There is a file header for every common used image file, we can detect file type using it. The popular file header is listed below:</p>
+
+<ul>
+  <li>Extended WebP
+```Java
+/**</li>
+  <li>
+    <p>Each VP8X WebP image has “features” byte following its ChunkHeader(‘VP8X’)
+ */
+private static final int EXTENDED_WEBP_HEADER_LENGTH = 21;
+```</p>
+  </li>
+  <li>Simple WebP
+```Java
+/**</li>
+  <li>Each WebP header should consist of at least 20 bytes and start</li>
+  <li>with “RIFF” bytes followed by some 4 bytes and “WEBP” bytes.</li>
+  <li>More detailed description if WebP can be found here:</li>
+  <li><a href="https://developers.google.com/speed/webp/docs/riff_container"></a></li>
+  <li>
+    <p>https://developers.google.com/speed/webp/docs/riff_container&lt;/a&gt;
+ */
+private static final int SIMPLE_WEBP_HEADER_LENGTH = 20;
+```</p>
+  </li>
+  <li>JPEG
+    <pre><code class="language-Java">private static final byte[] JPEG_HEADER = new byte[] {(byte) 0xFF, (byte)0xD8, (byte)0xFF}
+</code></pre>
+  </li>
+  <li>PNG
+    <pre><code class="language-Java">private static final byte[] PNG_HEADER = new byte[] {
+    (byte) 0x89,
+    'P', 'N', 'G',
+    (byte) 0x0D, (byte) 0x0A, (byte) 0x1A, (byte) 0x0A};
+</code></pre>
+  </li>
+  <li>GIF</li>
+</ul>
+
+<pre><code class="language-Java">private static final byte[] GIF_HEADER_87A = ImageFormatCheckerUtils.asciiBytes("GIF87a");
+private static final byte[] GIF_HEADER_89A = ImageFormatCheckerUtils.asciiBytes("GIF89a");
+
+public static byte[] asciiBytes(String value) {
+  Preconditions.checkNotNull(value);
+  try {
+    return value.getBytes("ASCII");
+  } catch (UnsupportedEncodingException uee) {
+    // won't happen
+    throw new RuntimeException("ASCII not found!", uee);
+  }
+}
+</code></pre>
+
+<ul>
+  <li>BMP_HEADER_LENGTH</li>
+</ul>
+
+<pre><code class="language-Java">/**
+ * Every bmp image starts with "BM" bytes
+ */
+private static final byte[] BMP_HEADER = ImageFormatCheckerUtils.asciiBytes("BM");
+</code></pre>
+
+<h2 id="detect-file-type-with-fresco">Detect file type with Fresco</h2>
+<p>There is a helper class in Fresco which can help detect image file type with an input stream. We can use that util class in our project:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  /**
+    * @return {@link com.facebook.imageformat.DefaultImageFormats}
+    */
+   @NonNull
+   public static ImageFormat getImageFormat(@NonNull ContentResolver cr, @NonNull Uri imageUri) {
+       if (cr == null || imageUri == null) {
+           return ImageFormat.UNKNOWN;
+       }
+
+       ImageFormat result = null;
+       try {
+           InputStream imageInputStream = cr.openInputStream(imageUri);
+           if (imageInputStream != null) {
+               result = ImageFormatChecker.getImageFormat(imageInputStream);
+           }
+       } catch (FileNotFoundException e) {
+           Log.printErrStackTrace(TAG, e,
+                   "FileNotFoundException in getImageFormat, uri: " + imageUri);
+       } catch (IOException e) {
+           Log.printErrStackTrace(TAG, e, "IOException in getImageFormat, uri: " + imageUri);
+       }
+
+       return (result == null) ? ImageFormat.UNKNOWN : result;
+   }
+</code></pre></div></div>
+
+<h2 id="detect-file-type-with-plain-codes">Detect file type with plain codes</h2>
+<p>If Fresco is not available, we can write our own util class like those in Fresco. Let’s go through source codes of Fresco and find out how things works.</p>
+<ol>
+  <li>getImageFormat is a static method, which calls instance method determineImageFormat(InputStream)
+    <pre><code class="language-Java">/**
+ * Tries to read up to MAX_HEADER_LENGTH bytes from InputStream is and use read bytes to
+ * determine type of the image contained in is. If provided input stream does not support mark,
+ * then this method consumes data from is and it is not safe to read further bytes from is after
+ * this method returns. Otherwise, if mark is supported, it will be used to preserve original
+ * content of is.
+ * @param is
+ * @return ImageFormat matching content of is InputStream or UNKNOWN if no type is suitable
+ * @throws IOException if exception happens during read
+ */
+public static ImageFormat getImageFormat(final InputStream is) throws IOException {
+  return getInstance().determineImageFormat(is);
+}
+</code></pre>
+  </li>
+  <li>determineImageFormat do the hard jobs. It read header from input stream and determine the ImageFormat.
+```Java
+public ImageFormat determineImageFormat(final InputStream is) throws IOException {
+  Preconditions.checkNotNull(is);
+  final byte[] imageHeaderBytes = new byte[mMaxHeaderLength];
+  final int headerSize = readHeaderFromStream(mMaxHeaderLength, is, imageHeaderBytes);</li>
+</ol>
+
+<p>if (mCustomImageFormatCheckers != null) {
+    for (ImageFormat.FormatChecker formatChecker : mCustomImageFormatCheckers) {
+      ImageFormat format = formatChecker.determineFormat(imageHeaderBytes, headerSize);
+      if (format != null &amp;&amp; format != ImageFormat.UNKNOWN) {
+        return format;
+      }
+    }
+  }
+  ImageFormat format = mDefaultFormatChecker.determineFormat(imageHeaderBytes, headerSize);
+  if (format == null) {
+    format = ImageFormat.UNKNOWN;
+  }
+  return format;
+}</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3. There is a default implementation to calculate mMaxHeaderLength, which covers most commonly used image format.
+
+```Java
+/**
+  * Maximum header size for any image type.
+  *
+  * &lt;p&gt;This determines how much data {@link ImageFormatChecker#getImageFormat(InputStream) reads
+  * from a stream. After changing any of the type detection algorithms, or adding a new one, this
+  * value should be edited.
+  */
+ final int MAX_HEADER_LENGTH = Ints.max(
+     EXTENDED_WEBP_HEADER_LENGTH,
+     SIMPLE_WEBP_HEADER_LENGTH,
+     JPEG_HEADER_LENGTH,
+     PNG_HEADER_LENGTH,
+     GIF_HEADER_LENGTH,
+     BMP_HEADER_LENGTH);
+
+@Override
+public int getHeaderSize() {
+   return MAX_HEADER_LENGTH;
+}
+</code></pre></div></div>
+
+<ol>
+  <li>Read header into a byte array with maximum header size. We can be sure that the header info is stored in that byte array.
+```Java
+/**
+    <ul>
+      <li>Reads up to maxHeaderLength bytes from is InputStream. If mark is supported by is, it is</li>
+      <li>used to restore content of the stream after appropriate amount of data is read.</li>
+      <li>Read bytes are stored in imageHeaderBytes, which should be capable of storing</li>
+      <li>maxHeaderLength bytes.</li>
+      <li>@param maxHeaderLength the maximum header length</li>
+      <li>@param is</li>
+      <li>@param imageHeaderBytes</li>
+      <li>@return number of bytes read from is</li>
+      <li>@throws IOException
+ */
+private static int readHeaderFromStream(
+ int maxHeaderLength,
+ final InputStream is,
+ final byte[] imageHeaderBytes)
+ throws IOException {
+  Preconditions.checkNotNull(is);
+  Preconditions.checkNotNull(imageHeaderBytes);
+  Preconditions.checkArgument(imageHeaderBytes.length &gt;= maxHeaderLength);</li>
+    </ul>
+  </li>
+</ol>
+
+<p>// If mark is supported by the stream, use it to let the owner of the stream re-read the same
+  // data. Otherwise, just consume some data.
+  if (is.markSupported()) {
+    try {
+      is.mark(maxHeaderLength);
+      return ByteStreams.read(is, imageHeaderBytes, 0, maxHeaderLength);
+    } finally {
+      is.reset();
+    }
+  } else {
+    return ByteStreams.read(is, imageHeaderBytes, 0, maxHeaderLength);
+  }
+}</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+5. We can set our custom ImageFormatChecker to detect those image format not in the list. And if our custom checker failed, the default ImageFormatChecker will still work.
+```java
+if (mCustomImageFormatCheckers != null) {
+  for (ImageFormat.FormatChecker formatChecker : mCustomImageFormatCheckers) {
+    ImageFormat format = formatChecker.determineFormat(imageHeaderBytes, headerSize);
+    if (format != null &amp;&amp; format != ImageFormat.UNKNOWN) {
+      return format;
+    }
+  }
+}
+</code></pre></div></div>
+
+<ol>
+  <li>Detect image format with header byte and header size.
+```Java
+/**
+    <ul>
+      <li>Tries to match imageHeaderByte and headerSize against every known image format. If any match</li>
+      <li>succeeds, corresponding ImageFormat is returned.
+ *</li>
+      <li>@param headerBytes the header bytes to check</li>
+      <li>@param headerSize the available header size</li>
+      <li>@return ImageFormat for given imageHeaderBytes or UNKNOWN if no such type could be recognized
+ */
+@Nullable
+@Override
+public final ImageFormat determineFormat(byte[] headerBytes, int headerSize) {
+  Preconditions.checkNotNull(headerBytes);</li>
+    </ul>
+  </li>
+</ol>
+
+<p>if (WebpSupportStatus.isWebpHeader(headerBytes, 0, headerSize)) {
+    return getWebpFormat(headerBytes, headerSize);
+  }</p>
+
+<p>if (isJpegHeader(headerBytes, headerSize)) {
+    return DefaultImageFormats.JPEG;
+  }</p>
+
+<p>if (isPngHeader(headerBytes, headerSize)) {
+    return DefaultImageFormats.PNG;
+  }</p>
+
+<p>if (isGifHeader(headerBytes, headerSize)) {
+    return DefaultImageFormats.GIF;
+  }</p>
+
+<p>if (isBmpHeader(headerBytes, headerSize)) {
+    return DefaultImageFormats.BMP;
+  }</p>
+
+<p>return ImageFormat.UNKNOWN;
+}</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+* Check is WebP
+```Java
+/**
+ * Checks if imageHeaderBytes contains WEBP_RIFF_BYTES and WEBP_NAME_BYTES and if the
+ * header is long enough to be WebP's header.
+ * WebP file format can be found here:
+ * &lt;a href="https://developers.google.com/speed/webp/docs/riff_container"&gt;
+ *   https://developers.google.com/speed/webp/docs/riff_container&lt;/a&gt;
+ * @param imageHeaderBytes image header bytes
+ * @return true if imageHeaderBytes contains a valid webp header
+ */
+public static boolean isWebpHeader(
+    final byte[] imageHeaderBytes,
+    final int offset,
+    final int headerSize) {
+  return headerSize &gt;= SIMPLE_WEBP_HEADER_LENGTH &amp;&amp;
+      matchBytePattern(imageHeaderBytes, offset, WEBP_RIFF_BYTES) &amp;&amp;
+      matchBytePattern(imageHeaderBytes, offset + 8, WEBP_NAME_BYTES);
+}
+</code></pre></div></div>
+
+<ul>
+  <li>Check is Jpeg
+```Java
+/**</li>
+  <li>Checks if imageHeaderBytes starts with SOI (start of image) marker, followed by 0xFF.</li>
+  <li>If headerSize is lower than 3 false is returned.</li>
+  <li>Description of jpeg format can be found here:</li>
+  <li><a href="http://www.w3.org/Graphics/JPEG/itu-t81.pdf"></a></li>
+  <li>http://www.w3.org/Graphics/JPEG/itu-t81.pdf&lt;/a&gt;</li>
+  <li>Annex B deals with compressed data format</li>
+  <li>@param imageHeaderBytes</li>
+  <li>@param headerSize</li>
+  <li>
+    <p>@return true if imageHeaderBytes starts with SOI_BYTES and headerSize &gt;= 3
+ */
+private static boolean isJpegHeader(final byte[] imageHeaderBytes, final int headerSize) {
+  return headerSize &gt;= JPEG_HEADER.length &amp;&amp;
+   ImageFormatCheckerUtils.startsWithPattern(imageHeaderBytes, JPEG_HEADER);
+}
+```</p>
+  </li>
+  <li>Check is PNG
+```Java
+/**</li>
+  <li>Checks if array consisting of first headerSize bytes of imageHeaderBytes</li>
+  <li>starts with png signature. More information on PNG can be found there:</li>
+  <li><a href="http://en.wikipedia.org/wiki/Portable_Network_Graphics"></a></li>
+  <li>http://en.wikipedia.org/wiki/Portable_Network_Graphics&lt;/a&gt;</li>
+  <li>@param imageHeaderBytes</li>
+  <li>@param headerSize</li>
+  <li>
+    <p>@return true if imageHeaderBytes starts with PNG_HEADER
+ */
+private static boolean isPngHeader(final byte[] imageHeaderBytes, final int headerSize) {
+  return headerSize &gt;= PNG_HEADER.length &amp;&amp;
+   ImageFormatCheckerUtils.startsWithPattern(imageHeaderBytes, PNG_HEADER);
+}
+```</p>
+  </li>
+  <li>Check is GIF
+```Java
+/**</li>
+  <li>Checks if first headerSize bytes of imageHeaderBytes constitute a valid header for a gif image.</li>
+  <li>Details on GIF header can be found <a href="http://www.w3.org/Graphics/GIF/spec-gif89a.txt"></a></li>
+  <li>on page 7&lt;/a&gt;</li>
+  <li>@param imageHeaderBytes</li>
+  <li>@param headerSize</li>
+  <li>
+    <p>@return true if imageHeaderBytes is a valid header for a gif image
+ */
+private static boolean isGifHeader(final byte[] imageHeaderBytes, final int headerSize) {
+  if (headerSize &lt; GIF_HEADER_LENGTH) {
+ return false;
+  }
+  return ImageFormatCheckerUtils.startsWithPattern(imageHeaderBytes, GIF_HEADER_87A) ||
+   ImageFormatCheckerUtils.startsWithPattern(imageHeaderBytes, GIF_HEADER_89A);
+}
+```</p>
+  </li>
+  <li>Check is BMP
+```Java
+/**</li>
+  <li>Checks if first headerSize bytes of imageHeaderBytes constitute a valid header for a bmp image.</li>
+  <li>Details on BMP header can be found <a href="http://www.onicos.com/staff/iz/formats/bmp.html"></a></li>
+  <li>&lt;/a&gt;</li>
+  <li>@param imageHeaderBytes</li>
+  <li>@param headerSize</li>
+  <li>@return true if imageHeaderBytes is a valid header for a bmp image
+ */
+private static boolean isBmpHeader(final byte[] imageHeaderBytes, final int headerSize) {
+  if (headerSize &lt; BMP_HEADER.length) {
+ return false;
+  }
+  return ImageFormatCheckerUtils.startsWithPattern(imageHeaderBytes, BMP_HEADER);
+}
+```</li>
+</ul>
+
+<ol>
+  <li>Util Class
+```Java
+private static boolean matchBytePattern(
+ final byte[] byteArray,
+ final int offset,
+ final byte[] pattern) {
+  if (pattern == null || byteArray == null) {
+ return false;
+  }
+  if (pattern.length + offset &gt; byteArray.length) {
+ return false;
+  }</li>
+</ol>
+
+<p>for (int i = 0; i &lt; pattern.length; ++i) {
+    if (byteArray[i + offset] != pattern[i]) {
+      return false;
+    }
+  }</p>
+
+<p>return true;
+}</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+```Java
+/**
+ * Checks if byteArray interpreted as sequence of bytes starts with pattern
+ * starting at position equal to offset.
+ * @param byteArray the byte array to be checked
+ * @param pattern the pattern to check
+ * @return true if byteArray starts with pattern
+ */
+public static boolean startsWithPattern(
+    final byte[] byteArray,
+    final byte[] pattern) {
+  Preconditions.checkNotNull(byteArray);
+  Preconditions.checkNotNull(pattern);
+  if (pattern.length &gt; byteArray.length) {
+    return false;
+  }
+
+  for (int i = 0; i &lt; pattern.length; ++i) {
+    if (byteArray[i] != pattern[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+</code></pre></div></div>
+
+<pre><code class="language-Java">/**
+ * Helper method that transforms provided string into it's byte representation
+ * using ASCII encoding.
+ * @param value the string to use
+ * @return byte array representing ascii encoded value
+ */
+public static byte[] asciiBytes(String value) {
+  Preconditions.checkNotNull(value);
+  try {
+    return value.getBytes("ASCII");
+  } catch (UnsupportedEncodingException uee) {
+    // won't happen
+    throw new RuntimeException("ASCII not found!", uee);
+  }
+}
+</code></pre>
