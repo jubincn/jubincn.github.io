@@ -4,7 +4,7 @@ We used to judge a file type by its suffix. For example, .gif for gif format, .j
 ## File header
 There is a file header for every common used image file, we can detect file type using it. The popular file header is listed below:
 
-* Extended WebP
+Extended WebP
 ```Java
 /**
  * Each VP8X WebP image has "features" byte following its ChunkHeader('VP8X')
@@ -12,7 +12,7 @@ There is a file header for every common used image file, we can detect file type
 private static final int EXTENDED_WEBP_HEADER_LENGTH = 21;
 ```
 
-* Simple WebP
+Simple WebP
 ```Java
 /**
  * Each WebP header should consist of at least 20 bytes and start
@@ -24,12 +24,12 @@ private static final int EXTENDED_WEBP_HEADER_LENGTH = 21;
 private static final int SIMPLE_WEBP_HEADER_LENGTH = 20;
 ```
 
-* JPEG
+JPEG
 ```Java
 private static final byte[] JPEG_HEADER = new byte[] {(byte) 0xFF, (byte)0xD8, (byte)0xFF}
 ```
 
-* PNG
+PNG
 ```Java
 private static final byte[] PNG_HEADER = new byte[] {
       (byte) 0x89,
@@ -37,7 +37,7 @@ private static final byte[] PNG_HEADER = new byte[] {
       (byte) 0x0D, (byte) 0x0A, (byte) 0x1A, (byte) 0x0A};
 ```
 
-* GIF
+GIF
 
 ```Java
 private static final byte[] GIF_HEADER_87A = ImageFormatCheckerUtils.asciiBytes("GIF87a");
@@ -54,7 +54,7 @@ public static byte[] asciiBytes(String value) {
 }
 ```
 
-* BMP_HEADER_LENGTH
+BMP_HEADER_LENGTH
 
 ```Java
 /**
