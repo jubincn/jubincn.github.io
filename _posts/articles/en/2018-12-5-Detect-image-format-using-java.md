@@ -94,7 +94,7 @@ There is a helper class in Fresco which can help detect image file type with an 
 
 ## Detect file type with plain codes
 If Fresco is not available, we can write our own util class like those in Fresco. Let's go through source codes of Fresco and find out how things works.
-1. getImageFormat is a static method, which calls instance method determineImageFormat(InputStream)
+getImageFormat is a static method, which calls instance method determineImageFormat(InputStream)
 ```Java
 /**
  * Tries to read up to MAX_HEADER_LENGTH bytes from InputStream is and use read bytes to
@@ -110,7 +110,7 @@ public static ImageFormat getImageFormat(final InputStream is) throws IOExceptio
   return getInstance().determineImageFormat(is);
 }
 ```
-2. determineImageFormat do the hard jobs. It read header from input stream and determine the ImageFormat.
+determineImageFormat do the hard jobs. It read header from input stream and determine the ImageFormat.
 ```Java
 public ImageFormat determineImageFormat(final InputStream is) throws IOException {
   Preconditions.checkNotNull(is);
@@ -132,9 +132,9 @@ public ImageFormat determineImageFormat(final InputStream is) throws IOException
   return format;
 }
 ```
-3. There is a default implementation to calculate mMaxHeaderLength, which covers most commonly used image format.
+There is a default implementation to calculate mMaxHeaderLength, which covers most commonly used image format.
 
-```Java
+```
 /**
   * Maximum header size for any image type.
   *
@@ -142,7 +142,7 @@ public ImageFormat determineImageFormat(final InputStream is) throws IOException
   * from a stream. After changing any of the type detection algorithms, or adding a new one, this
   * value should be edited.
   */
- final int MAX_HEADER_LENGTH = Ints.max(
+final int MAX_HEADER_LENGTH = Ints.max(
      EXTENDED_WEBP_HEADER_LENGTH,
      SIMPLE_WEBP_HEADER_LENGTH,
      JPEG_HEADER_LENGTH,
@@ -155,8 +155,7 @@ public int getHeaderSize() {
    return MAX_HEADER_LENGTH;
 }
 ```
-
-4. Read header into a byte array with maximum header size. We can be sure that the header info is stored in that byte array.
+Read header into a byte array with maximum header size. We can be sure that the header info is stored in that byte array.
 ```Java
 /**
  * Reads up to maxHeaderLength bytes from is InputStream. If mark is supported by is, it is
@@ -193,7 +192,7 @@ private static int readHeaderFromStream(
 }
 ```
 
-5. We can set our custom ImageFormatChecker to detect those image format not in the list. And if our custom checker failed, the default ImageFormatChecker will still work.
+We can set our custom ImageFormatChecker to detect those image format not in the list. And if our custom checker failed, the default ImageFormatChecker will still work.
 ```java
 if (mCustomImageFormatCheckers != null) {
   for (ImageFormat.FormatChecker formatChecker : mCustomImageFormatCheckers) {
@@ -205,7 +204,7 @@ if (mCustomImageFormatCheckers != null) {
 }
 ```
 
-6. Detect image format with header byte and header size.
+Detect image format with header byte and header size.
 ```Java
 /**
  * Tries to match imageHeaderByte and headerSize against every known image format. If any match
@@ -244,7 +243,7 @@ public final ImageFormat determineFormat(byte[] headerBytes, int headerSize) {
 }
 ```
 
-* Check is WebP
+Check is WebP
 ```Java
 /**
  * Checks if imageHeaderBytes contains WEBP_RIFF_BYTES and WEBP_NAME_BYTES and if the
@@ -265,7 +264,7 @@ public static boolean isWebpHeader(
 }
 ```
 
-* Check is Jpeg
+Check is Jpeg
 ```Java
 /**
  * Checks if imageHeaderBytes starts with SOI (start of image) marker, followed by 0xFF.
@@ -284,7 +283,7 @@ private static boolean isJpegHeader(final byte[] imageHeaderBytes, final int hea
 }
 ```
 
-* Check is PNG
+Check is PNG
 ```Java
 /**
  * Checks if array consisting of first headerSize bytes of imageHeaderBytes
@@ -301,7 +300,7 @@ private static boolean isPngHeader(final byte[] imageHeaderBytes, final int head
 }
 ```
 
-* Check is GIF
+Check is GIF
 ```Java
 /**
  * Checks if first headerSize bytes of imageHeaderBytes constitute a valid header for a gif image.
@@ -320,7 +319,7 @@ private static boolean isGifHeader(final byte[] imageHeaderBytes, final int head
 }
 ```
 
-* Check is BMP
+Check is BMP
 ```Java
 /**
  * Checks if first headerSize bytes of imageHeaderBytes constitute a valid header for a bmp image.
@@ -338,7 +337,7 @@ private static boolean isBmpHeader(final byte[] imageHeaderBytes, final int head
 }
 ```
 
-7. Util Class
+Util Class
 ```Java
 private static boolean matchBytePattern(
     final byte[] byteArray,
