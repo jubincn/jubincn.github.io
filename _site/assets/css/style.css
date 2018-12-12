@@ -570,18 +570,18 @@ th {
  * Wrapper
  */
 .wrapper {
-  max-width: -webkit-calc(50em - (30px * 2));
-  max-width: calc(50em - (30px * 2));
+  max-width: -webkit-calc(80em - (10px * 2));
+  max-width: calc(80em - (10px * 2));
   margin-right: auto;
   margin-left: auto;
-  padding-right: 30px;
-  padding-left: 30px; }
-  @media screen and (max-width: 50em) {
+  padding-right: 10px;
+  padding-left: 10px; }
+  @media screen and (max-width: 80em) {
     .wrapper {
-      max-width: -webkit-calc(50em - (30px));
-      max-width: calc(50em - (30px));
-      padding-right: 15px;
-      padding-left: 15px; } }
+      max-width: -webkit-calc(80em - (10px));
+      max-width: calc(80em - (10px));
+      padding-right: 5px;
+      padding-left: 5px; } }
 
 /**
  * Clearfix
@@ -596,7 +596,7 @@ th {
  */
 .site-header {
   border-bottom: 1px solid #e8e8e8;
-  min-height: 55.95px;
+  min-height: 18.65px;
   position: relative; }
 
 .site-title {
@@ -627,7 +627,7 @@ th {
     .site-nav {
       position: absolute;
       top: 9px;
-      right: 15px;
+      right: 5px;
       background-color: #fdfdfd;
       border: 1px solid #e8e8e8;
       border-radius: 5px;
@@ -675,7 +675,7 @@ th {
   padding: 0;
   list-style: none; }
   .post-list > li {
-    margin-bottom: 33px; }
+    margin-bottom: 11px; }
   .post-list > li > h2 {
     margin-top: 0rem;
     margin-bottom: 0.4rem; }
@@ -768,10 +768,10 @@ a {
     border-color: rgba(255, 255, 255, 0.3); }
   .btn + .btn {
     margin-left: 1rem; }
-  @media screen and (min-width: 50em) {
+  @media screen and (min-width: 80em) {
     .btn {
       padding: 0.75rem 1rem; } }
-  @media screen and (min-width: 42em) and (max-width: 50em) {
+  @media screen and (min-width: 42em) and (max-width: 80em) {
     .btn {
       padding: 0.6rem 0.9rem;
       font-size: 0.9rem; } }
@@ -790,10 +790,10 @@ a {
   text-align: center;
   background-color: #159957;
   background-size: inherit; }
-  @media screen and (min-width: 50em) {
+  @media screen and (min-width: 80em) {
     .page-header {
       padding: 5rem 6rem; } }
-  @media screen and (min-width: 42em) and (max-width: 50em) {
+  @media screen and (min-width: 42em) and (max-width: 80em) {
     .page-header {
       padding: 3rem 4rem; } }
   @media screen and (max-width: 42em) {
@@ -804,10 +804,10 @@ a {
   color: #000;
   margin-top: 0;
   margin-bottom: 0.1rem; }
-  @media screen and (min-width: 50em) {
+  @media screen and (min-width: 80em) {
     .project-name {
       font-size: 3.25rem; } }
-  @media screen and (min-width: 42em) and (max-width: 50em) {
+  @media screen and (min-width: 42em) and (max-width: 80em) {
     .project-name {
       font-size: 2.25rem; } }
   @media screen and (max-width: 42em) {
@@ -819,10 +819,10 @@ a {
   font-weight: normal;
   opacity: 1;
   color: #eeeeee; }
-  @media screen and (min-width: 50em) {
+  @media screen and (min-width: 80em) {
     .project-tagline {
       font-size: 1.25rem; } }
-  @media screen and (min-width: 42em) and (max-width: 50em) {
+  @media screen and (min-width: 42em) and (max-width: 80em) {
     .project-tagline {
       font-size: 1.15rem; } }
   @media screen and (max-width: 42em) {
@@ -834,10 +834,10 @@ a {
   font-weight: normal;
   opacity: 0.7;
   font-style: italic; }
-  @media screen and (min-width: 50em) {
+  @media screen and (min-width: 80em) {
     .project-date {
       font-size: 1.0rem; } }
-  @media screen and (min-width: 42em) and (max-width: 50em) {
+  @media screen and (min-width: 42em) and (max-width: 80em) {
     .project-date {
       font-size: 0.95rem; } }
   @media screen and (max-width: 42em) {
@@ -848,13 +848,13 @@ a {
   word-wrap: break-word; }
   .main-content :first-child {
     margin-top: 0; }
-  @media screen and (min-width: 50em) {
+  @media screen and (min-width: 80em) {
     .main-content {
-      max-width: 50em;
+      max-width: 80em;
       padding: 1rem 6rem;
       margin: 0 auto;
       font-size: 1.1rem; } }
-  @media screen and (min-width: 42em) and (max-width: 50em) {
+  @media screen and (min-width: 42em) and (max-width: 80em) {
     .main-content {
       padding: 1rem 4rem;
       font-size: 1.1rem; } }
@@ -976,10 +976,10 @@ a {
   padding-top: 2rem;
   margin-top: 2rem;
   border-top: solid 1px #eff0f1; }
-  @media screen and (min-width: 50em) {
+  @media screen and (min-width: 80em) {
     .site-footer {
       font-size: 1rem; } }
-  @media screen and (min-width: 42em) and (max-width: 50em) {
+  @media screen and (min-width: 42em) and (max-width: 80em) {
     .site-footer {
       font-size: 1rem; } }
   @media screen and (max-width: 42em) {
@@ -998,10 +998,10 @@ a {
   text-decoration: none; }
 .site-footer .my-span-icon a:hover {
   text-decoration: none; }
-@media screen and (min-width: 50em) {
+@media screen and (min-width: 80em) {
   .site-footer .my-span-icon {
     padding: 0px 5px 0px 5px; } }
-@media screen and (min-width: 42em) and (max-width: 50em) {
+@media screen and (min-width: 42em) and (max-width: 80em) {
   .site-footer .my-span-icon {
     padding: 0px 10px 10px 10px; } }
 @media screen and (max-width: 42em) {
@@ -1021,11 +1021,11 @@ a {
     fill: #24292e;
     transform: scale(1.25);
     transition: color 0.5s, transform 0.2s ease-out; }
-  @media screen and (min-width: 50em) {
+  @media screen and (min-width: 80em) {
     .site-footer .my-svg-icon {
       width: 28px;
       height: 28px; } }
-  @media screen and (min-width: 42em) and (max-width: 50em) {
+  @media screen and (min-width: 42em) and (max-width: 80em) {
     .site-footer .my-svg-icon {
       width: 32px;
       height: 32px; } }

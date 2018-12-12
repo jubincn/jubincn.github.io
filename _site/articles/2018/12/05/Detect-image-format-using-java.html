@@ -4,42 +4,36 @@
 <h2 id="file-header">File header</h2>
 <p>There is a file header for every common used image file, we can detect file type using it. The popular file header is listed below:</p>
 
-<ul>
-  <li>Extended WebP
-```Java
-/**</li>
-  <li>
-    <p>Each VP8X WebP image has “features” byte following its ChunkHeader(‘VP8X’)
+<p>Extended WebP</p>
+<pre><code class="language-Java">/**
+ * Each VP8X WebP image has "features" byte following its ChunkHeader('VP8X')
  */
 private static final int EXTENDED_WEBP_HEADER_LENGTH = 21;
-```</p>
-  </li>
-  <li>Simple WebP
-```Java
-/**</li>
-  <li>Each WebP header should consist of at least 20 bytes and start</li>
-  <li>with “RIFF” bytes followed by some 4 bytes and “WEBP” bytes.</li>
-  <li>More detailed description if WebP can be found here:</li>
-  <li><a href="https://developers.google.com/speed/webp/docs/riff_container"></a></li>
-  <li>
-    <p>https://developers.google.com/speed/webp/docs/riff_container&lt;/a&gt;
+</code></pre>
+
+<p>Simple WebP</p>
+<pre><code class="language-Java">/**
+ * Each WebP header should consist of at least 20 bytes and start
+ * with "RIFF" bytes followed by some 4 bytes and "WEBP" bytes.
+ * More detailed description if WebP can be found here:
+ * &lt;a href="https://developers.google.com/speed/webp/docs/riff_container"&gt;
+ *   https://developers.google.com/speed/webp/docs/riff_container&lt;/a&gt;
  */
 private static final int SIMPLE_WEBP_HEADER_LENGTH = 20;
-```</p>
-  </li>
-  <li>JPEG
-    <pre><code class="language-Java">private static final byte[] JPEG_HEADER = new byte[] {(byte) 0xFF, (byte)0xD8, (byte)0xFF}
 </code></pre>
-  </li>
-  <li>PNG
-    <pre><code class="language-Java">private static final byte[] PNG_HEADER = new byte[] {
-    (byte) 0x89,
-    'P', 'N', 'G',
-    (byte) 0x0D, (byte) 0x0A, (byte) 0x1A, (byte) 0x0A};
+
+<p>JPEG</p>
+<pre><code class="language-Java">private static final byte[] JPEG_HEADER = new byte[] {(byte) 0xFF, (byte)0xD8, (byte)0xFF}
 </code></pre>
-  </li>
-  <li>GIF</li>
-</ul>
+
+<p>PNG</p>
+<pre><code class="language-Java">private static final byte[] PNG_HEADER = new byte[] {
+      (byte) 0x89,
+      'P', 'N', 'G',
+      (byte) 0x0D, (byte) 0x0A, (byte) 0x1A, (byte) 0x0A};
+</code></pre>
+
+<p>GIF</p>
 
 <pre><code class="language-Java">private static final byte[] GIF_HEADER_87A = ImageFormatCheckerUtils.asciiBytes("GIF87a");
 private static final byte[] GIF_HEADER_89A = ImageFormatCheckerUtils.asciiBytes("GIF89a");
@@ -55,9 +49,7 @@ public static byte[] asciiBytes(String value) {
 }
 </code></pre>
 
-<ul>
-  <li>BMP_HEADER_LENGTH</li>
-</ul>
+<p>BMP_HEADER_LENGTH</p>
 
 <pre><code class="language-Java">/**
  * Every bmp image starts with "BM" bytes
