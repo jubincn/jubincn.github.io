@@ -19,20 +19,13 @@ TextView is a one of the most complicated widget in Android with 11947 lines of 
 2. Custom View using android.text.Layout implementation.
 TextView relies on Layout to display text.
 > A base class that manages text layout in visual elements on the screen.
-<<<<<<< HEAD
 >> For text that will be edited, use a DynamicLayout, which will be updated as the text changes. For text that will not change, use a StaticLayout.
 
  * BoringLayout
- 
+
  * StaticLayout
  * DynamicLayout
-=======
-> For text that will be edited, use a DynamicLayout, which will be updated as the text changes. For text that will not change, use a StaticLayout.
-2.1 BoringLayout
-2.2 StaticLayout
-2.3 DynamicLayout
 
->>>>>>> 3ca910211f7bf9cfa4a1d5ee07123866d92496a2
 3. Custom View using Canvas.drawText(), Canvas.drawTextRun(), Canvas.drawTextOnPath()
 These drawText call is implemented in native code. You will find more on how native code draw text in TextView Architecture section.
 3.1 Canvas.drawText()
@@ -83,7 +76,7 @@ and according to official docs:
 I will stop here since this is an introduction and there are few materials on it.
 
 3.2 Canvas.drawTextRun()
-Method signature: 
+Method signature:
 > public void drawTextRun(@NonNull CharSequence text, int start, int end, int contextStart,
 >            int contextEnd, float x, float y, boolean isRtl, @NonNull Paint paint)
 
