@@ -7,10 +7,72 @@
 </description>
     <link>http://localhost:4000/index.html</link>
     <atom:link href="http://localhost:4000/feed-en.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 24 Oct 2018 00:37:40 +0800</pubDate>
-    <lastBuildDate>Wed, 24 Oct 2018 00:37:40 +0800</lastBuildDate>
+    <pubDate>Wed, 12 Dec 2018 08:55:27 +0800</pubDate>
+    <lastBuildDate>Wed, 12 Dec 2018 08:55:27 +0800</lastBuildDate>
     <generator>Jekyll v3.6.3</generator>
     
+    
+      <item>
+        <title>Android Binder Study Note</title>
+        <description>&lt;h2 id=&quot;tldr&quot;&gt;TL,DR&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Driver based IPC.&lt;/li&gt;
+  &lt;li&gt;There is only one copy for Binder IPC and hence its efficient.
+    &lt;ul&gt;
+      &lt;li&gt;For client: Copy data from user space to kernel space, 1 time.&lt;/li&gt;
+      &lt;li&gt;For server: Using mmap to share response memory, 0 time.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;how-to-find-service&quot;&gt;How to find service?&lt;/h2&gt;
+&lt;p&gt;Binder token is used to locate service and they are registered in ServiceManager. There is a default locater with fixed token(seems to be 0) and client will ask locater for address.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-use-binder-instead-of-other-linux-ipc&quot;&gt;Why use Binder instead of other Linux IPC?&lt;/h2&gt;
+&lt;p&gt;Shared memory is more efficient but its also error-prone. Pipe and message queue is less efficient since they need 2 memory copy.&lt;/p&gt;
+
+&lt;h2 id=&quot;security-model&quot;&gt;Security model&lt;/h2&gt;
+&lt;p&gt;Based on UID and PID, and filters to guarantee security.&lt;/p&gt;
+
+&lt;h2 id=&quot;async-or-sync&quot;&gt;Async or sync?&lt;/h2&gt;
+&lt;p&gt;Synchronous.&lt;/p&gt;
+
+&lt;h2 id=&quot;reference-counting&quot;&gt;Reference Counting&lt;/h2&gt;
+&lt;p&gt;Since Binder object is shared by another process, Binder use reference counting to track it.&lt;/p&gt;
+
+&lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/35519585&quot;&gt;写给 Android 应用工程师的 Binder 原理剖析&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.dre.vanderbilt.edu/~schmidt/cs282/PDFs/android-binder-ipc.pdf&quot;&gt;Android Binder IPC pdf&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 19 Nov 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/articles/2018/11/19/android-binder-study-note.html</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2018/11/19/android-binder-study-note.html</guid>
+        
+        
+        <category>articles</category>
+        
+      </item>
+    
+      <item>
+        <title>Marquee Long Text In Textview</title>
+        <description>&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;Use android:singline=”true” and make the TextView selected&lt;/p&gt;
+
+&lt;h2 id=&quot;effect&quot;&gt;Effect&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/../assets/gif/20181110_marquee_tabs.gif&quot; alt=&quot;marquee demo gif&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;source-code&quot;&gt;Source Code&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/jubincn/MarqueeTextViewDemo&quot;&gt;MarqueeTextViewDemo&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 10 Nov 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/articles/2018/11/10/marquee-long-text-in-textview.html</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2018/11/10/marquee-long-text-in-textview.html</guid>
+        
+        
+        <category>articles</category>
+        
+      </item>
     
       <item>
         <title>Android Studio Custom Todo</title>
@@ -30,7 +92,7 @@
 
 &lt;h2 id=&quot;custom-filters&quot;&gt;Custom filters&lt;/h2&gt;
 &lt;h4 id=&quot;in-the-same-popup-shown-in-step-1-click--in-filters-panel&quot;&gt;In the same popup shown in step 1, click “+” in Filters panel.&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/20181023-6-add-fitler.png&quot; alt=&quot;Add Filter&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/pic/20181023-6-add-fitler.png&quot; alt=&quot;Add Filter&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;input-filter-name-and-select-patterns&quot;&gt;Input filter name and select patterns.&lt;/h4&gt;
 &lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/pic/20181023-5-edit-filter.png&quot; alt=&quot;Edit Filter&quot; /&gt;&lt;/p&gt;
