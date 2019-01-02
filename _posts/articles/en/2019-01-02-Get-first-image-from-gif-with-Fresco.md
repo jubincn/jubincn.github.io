@@ -14,10 +14,9 @@ object FrescoUtils {
         // ATTENTION!!! future.set() should be called
         val future = SimpleSettableFuture<Bitmap?>()
 
-        val dataSource = Fresco.getImagePipeline().fetchDecodedImage(request, "animatedImage")
+        val dataSource =Fresco.getImagePipeline().fetchDecodedImage(request, "animatedImage")
         if (dataSource != null) {
-            dataSource.subscribe(object :
-                BaseDataSubscriber<CloseableReference<CloseableImage?>?>() {
+            dataSource.subscribe(object : BaseDataSubscriber<CloseableReference<CloseableImage?>?>() {
                 override fun onNewResultImpl(paramDataSource: DataSource<CloseableReference<CloseableImage?>?>?) {
                     if (paramDataSource != null && paramDataSource.hasResult()) {
                         paramDataSource.result?.get()?.use {
