@@ -1,4 +1,4 @@
-# Convert Async to Sync Call Using Future and CountDownLatch
+## Convert Async to Sync Call Using Future and CountDownLatch
 If a sync method call is wanted while API only provides async callback, we can con convert it to sync method call with Future and CountDownLatch.
 
 ## Async callback example
