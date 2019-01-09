@@ -1,4 +1,5 @@
 
+## Annotations for Java friendly code 
 [原文地址](https://proandroiddev.com/annotations-for-your-java-friendly-kotlin-code-badfbedec14)
 
 对于部分使用kotlin，部分使用java的android项目而言，java和kotlin的相互调用是个大坑。这篇文章讲了kotlin里常用的与java调用相关的注解。

@@ -1,7 +1,7 @@
-# Get first image from GIF with Fresco Sync & Async
+## Get first image from GIF with Fresco Sync & Async
 Fresco did not provides a Sync way to get bitmap from DataSource, but we can use SimpleSettableFuture from ReactNative. However, we can write our own SettableFuture like what ReactNative done.
 
-## Sync, With Fresco
+### Sync, With Fresco
 ```kotlin
 object FrescoUtils {
     private const val TAG = "FrescoUtils"
@@ -82,7 +82,7 @@ object FrescoUtils {
 }
 ```
 
-## SimpleSettableFuture from ReactNative
+### SimpleSettableFuture from ReactNative
 ```java
 /**
  * Copyright (c) 2015-present, Facebook, Inc.

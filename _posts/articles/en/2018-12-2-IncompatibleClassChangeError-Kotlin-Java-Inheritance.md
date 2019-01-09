@@ -1,3 +1,5 @@
+## IncompatibleClassChangeError using Kotlin with Java
+
 ## Stack Trace
 java.lang.IncompatibleClassChangeError: Expected 'java.lang.String com.example.jubin.componiontest.Child.TAG' to be a instance field rather than a static field (declaration of 'com.example.jubin.componiontest.Child' appears in /data/app/com.example.jubin.componiontest--ve-LsY3llWd0XWRXem1Kw==/base.apk)
        at com.example.jubin.componiontest.Child.visitInner(Child.kt:12)
