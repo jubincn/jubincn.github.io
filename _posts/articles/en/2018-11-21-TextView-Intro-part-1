@@ -24,8 +24,8 @@ TextView relies on Layout to display text.
  * BoringLayout
 
  * StaticLayout
- * DynamicLayout
 
+ * DynamicLayout
 3. Custom View using Canvas.drawText(), Canvas.drawTextRun(), Canvas.drawTextOnPath()
 These drawText call is implemented in native code. You will find more on how native code draw text in TextView Architecture section.
 3.1 Canvas.drawText()
