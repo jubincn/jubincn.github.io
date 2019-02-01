@@ -1,0 +1,17 @@
+## ```var```, ```let``` and ```const```
+There are two types of scopes in javascript, that is:
+* Local scope(Function scope)
+* Global scope
+
+
+
+## ```interface``` vs ```class```
+
+
+
+## interface and class which has same name will merge
+
+
+
+
+##
