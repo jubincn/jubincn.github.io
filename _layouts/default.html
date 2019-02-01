@@ -90,11 +90,11 @@
 
     {% if page.layout == 'home' %}
       {% assign page-tagline = page.tagline | default: site.description | escape %}
-      {% assign header-padding = "80px" %}
-      {% assign header-padding-bottom = "40px" %}
+      {% assign header-padding = "40px" %}
+      {% assign header-padding-bottom = "10px" %}
     {% else %}
       {% assign header-padding = "40px" %}
-      {% assign header-padding-bottom = "20px" %}
+      {% assign header-padding-bottom = "10px" %}
     {% endif %}
 
     {% if page.layout == 'page' or page.layout == 'category' %}
@@ -108,7 +108,7 @@
     <section class="page-header" style="padding-top: {{ header-padding }}; padding-bottom: {{ header-padding-bottom }}; background: linear-gradient(0deg,rgba(0,0,0,0.2),rgba(0,0,0,0.0)), url('{{ site.baseurl }}{{ page.header.image | default: site.header.image }}') center center repeat;">
       <h1 class="project-name">{{ header_title }}</h1>
       <h2 class="project-tagline">{{ page-tagline }}</h2>
-      
+
       <!-- Post tagline -->
       {% if page.layout == 'post' %}
         <!-- <h2 class="project-date">

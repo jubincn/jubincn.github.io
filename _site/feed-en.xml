@@ -7,8 +7,8 @@
 </description>
     <link>http://localhost:4000/index.html</link>
     <atom:link href="http://localhost:4000/feed-en.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 16 Dec 2018 11:10:45 +0800</pubDate>
-    <lastBuildDate>Sun, 16 Dec 2018 11:10:45 +0800</lastBuildDate>
+    <pubDate>Wed, 12 Dec 2018 11:33:39 +0800</pubDate>
+    <lastBuildDate>Wed, 12 Dec 2018 11:33:39 +0800</lastBuildDate>
     <generator>Jekyll v3.6.3</generator>
     
     
@@ -20,42 +20,36 @@
 &lt;h2 id=&quot;file-header&quot;&gt;File header&lt;/h2&gt;
 &lt;p&gt;There is a file header for every common used image file, we can detect file type using it. The popular file header is listed below:&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;Extended WebP
-```Java
-/**&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Each VP8X WebP image has “features” byte following its ChunkHeader(‘VP8X’)
+&lt;p&gt;Extended WebP&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;/**
+ * Each VP8X WebP image has &quot;features&quot; byte following its ChunkHeader('VP8X')
  */
 private static final int EXTENDED_WEBP_HEADER_LENGTH = 21;
-```&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Simple WebP
-```Java
-/**&lt;/li&gt;
-  &lt;li&gt;Each WebP header should consist of at least 20 bytes and start&lt;/li&gt;
-  &lt;li&gt;with “RIFF” bytes followed by some 4 bytes and “WEBP” bytes.&lt;/li&gt;
-  &lt;li&gt;More detailed description if WebP can be found here:&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developers.google.com/speed/webp/docs/riff_container&quot;&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;https://developers.google.com/speed/webp/docs/riff_container&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Simple WebP&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;/**
+ * Each WebP header should consist of at least 20 bytes and start
+ * with &quot;RIFF&quot; bytes followed by some 4 bytes and &quot;WEBP&quot; bytes.
+ * More detailed description if WebP can be found here:
+ * &amp;lt;a href=&quot;https://developers.google.com/speed/webp/docs/riff_container&quot;&amp;gt;
+ *   https://developers.google.com/speed/webp/docs/riff_container&amp;lt;/a&amp;gt;
  */
 private static final int SIMPLE_WEBP_HEADER_LENGTH = 20;
-```&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;JPEG
-    &lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;private static final byte[] JPEG_HEADER = new byte[] {(byte) 0xFF, (byte)0xD8, (byte)0xFF}
 &lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;PNG
-    &lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;private static final byte[] PNG_HEADER = new byte[] {
-    (byte) 0x89,
-    'P', 'N', 'G',
-    (byte) 0x0D, (byte) 0x0A, (byte) 0x1A, (byte) 0x0A};
+
+&lt;p&gt;JPEG&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;private static final byte[] JPEG_HEADER = new byte[] {(byte) 0xFF, (byte)0xD8, (byte)0xFF}
 &lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;GIF&lt;/li&gt;
-&lt;/ul&gt;
+
+&lt;p&gt;PNG&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;private static final byte[] PNG_HEADER = new byte[] {
+      (byte) 0x89,
+      'P', 'N', 'G',
+      (byte) 0x0D, (byte) 0x0A, (byte) 0x1A, (byte) 0x0A};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;GIF&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;private static final byte[] GIF_HEADER_87A = ImageFormatCheckerUtils.asciiBytes(&quot;GIF87a&quot;);
 private static final byte[] GIF_HEADER_89A = ImageFormatCheckerUtils.asciiBytes(&quot;GIF89a&quot;);
@@ -71,9 +65,7 @@ public static byte[] asciiBytes(String value) {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;BMP_HEADER_LENGTH&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;BMP_HEADER_LENGTH&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;/**
  * Every bmp image starts with &quot;BM&quot; bytes
