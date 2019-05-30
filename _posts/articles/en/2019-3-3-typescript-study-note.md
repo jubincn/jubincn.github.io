@@ -3,7 +3,7 @@ There are two types of scopes in javascript, that is:
 * Local scope(Function scope)
 * Global scope
 
-Variable declared as `var` has a local scope while `var` has a global scope.
+Variable declared as `let` has a local scope while `var` has a global scope.
 Variable declared as `const` is a constant.
 Property use `readonly` while variable use `const`.
 
