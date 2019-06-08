@@ -1,7 +1,7 @@
 # Why RPC is important?
 Remote Method Call is to solve how to pass messages in distributed system. The stability and performance of RPC will affect the whole system.
 
-# The components of RPC
+# Components of RPC
 1. Transport
 - TCP
 2. I/O
@@ -21,7 +21,6 @@ Remote Method Call is to solve how to pass messages in distributed system. The s
 - Performance
 5. Wire Protocol (Wire Frame)
 6. Reliability
-
 
 # References
 [体系化认识 RPC](https://www.infoq.cn/article/get-to-know-rpc)
