@@ -29,9 +29,8 @@ public class EnumDemo {
     }
 }
 ```
-
 The switch case part of bytecode:
-```Java bytecode
+```Java
 public class tech/jubin/demo/EnumDemo {
   ... truncated ...
 
